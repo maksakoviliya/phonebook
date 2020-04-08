@@ -11,6 +11,17 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
+mix.scripts([
+        'resources/js/dashboard/core/jquery.min.js',
+        'resources/js/dashboard/core/popper.min.js',
+        'resources/js/dashboard/core/bootstrap-material-design.min.js',
+        'resources/js/dashboard/plugins/default-passive-events.min.js',
+        'resources/js/dashboard/plugins/perfect-scrollbar.jquery.min.js',
+        'resources/js/dashboard/plugins/github-buttons.min.js',
+        'resources/js/dashboard/plugins/chartist.min.js',
+        'resources/js/dashboard/plugins/bootstrap-notify.js',
+        'resources/js/dashboard/material-dashboard.js',
+        'resources/js/dashboard/demo.js',
+        'resources/js/app.js'], 'public/js/app.js').version()
     .sass('resources/sass/app.scss', 'public/css')
      .browserSync('localhost:8000');
