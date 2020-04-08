@@ -5,10 +5,11 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
-    /*
+     /*
     |--------------------------------------------------------------------------
     | Login Controller
     |--------------------------------------------------------------------------
@@ -36,5 +37,23 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function username()
+    {
+        return 'phone';
+    }
+
+    protected function validateLogin(Request $request)
+    {
+        $request->validate([
+            'phone'    => ['required', 'regex:/^(\+7|8)+([0-9]{10})$/'],
+            'password' => 'required|string',
+        ]);
+    }
+
+    protected function authenticated(Request $request, $user)
+    {
+        return redirect('dashboard');
     }
 }

@@ -1,8 +1,9 @@
-// Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
-
 // Variables
+@import 'font-family';
 @import 'variables';
 
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
+@import '../fonts/FontAwesome/fontawesome';
+@import '../fonts/FontAwesome/brands';
+@import '../fonts/FontAwesome/regular';
+@import '../fonts/FontAwesome/solid';
+@import 'dashboard/material-dashboard';

@@ -1,19 +1,33 @@
-// Body
-$body-bg: #f8fafc;
+@include font-face('Roboto', '../fonts/Roboto/Roboto-Light', 300);
+@include font-face('Roboto', '../fonts/Roboto/Roboto-Regular', 400);
+@include font-face('Roboto', '../fonts/Roboto/Roboto-Medium', 500);
+@include font-face('Roboto', '../fonts/Roboto/Roboto-Bold', 700);
 
-// Typography
-$font-family-sans-serif: 'Nunito', sans-serif;
-$font-size-base: 0.9rem;
-$line-height-base: 1.6;
+@include font-face('Roboto Slab', '../fonts/Roboto/RobotoSlab-Regular', 400);
+@include font-face('Roboto Slab', '../fonts/Roboto/RobotoSlab-Regular', 700);
 
-// Colors
-$blue: #3490dc;
-$indigo: #6574cd;
-$purple: #9561e2;
-$pink: #f66d9b;
-$red: #e3342f;
-$orange: #f6993f;
-$yellow: #ffed4a;
-$green: #38c172;
-$teal: #4dc0b5;
-$cyan: #6cb2eb;
+/* fallback */
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/Material/MaterialIcons.woff2') format('woff2');
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+
+$fa-font-path: "../fonts/FontAwesome/webfonts/";
