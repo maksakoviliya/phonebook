@@ -85,7 +85,7 @@
                 </div>
 
                 <div class="links">
-                    <a href="#">Dashboard</a>
+                    <a href="{{ route('dashboard') }}">Dashboard</a>
                     <a href="https://github.com/maksakoviliya/phonebook.git">GitHub</a>
                 </div>
             </div>

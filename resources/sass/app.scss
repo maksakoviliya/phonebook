@@ -6,4 +6,119 @@
 @import '../fonts/FontAwesome/brands';
 @import '../fonts/FontAwesome/regular';
 @import '../fonts/FontAwesome/solid';
+@import 'dashboard/material-dashboard/plugins/bootstrap-select';
 @import 'dashboard/material-dashboard';
+
+.bootstrap-select .btn.dropdown-toggle.select-with-transition {
+    border: 0!important;
+    background-image: linear-gradient(0deg, #9c27b0 2px, rgba(156, 39, 176, 0) 0), linear-gradient(0deg, #d2d2d2 1px, hsla(0, 0%, 82%, 0) 0);
+    background-size: 0 100%, 100% 100%;
+    background-repeat: no-repeat;
+    background-position: bottom, 50% calc(100% - 1px);
+    background-color: transparent!important;
+    transition: background 0s linear!important;
+    float: none!important;
+    box-shadow: none!important;
+    border-radius: 0!important;
+    color: $blue-grey-100!important;
+    height: 34px;
+    padding-left: 0!important;
+    padding-bottom: 5px!important
+}
+
+.bootstrap-select .btn.dropdown-toggle.select-with-transition:focus {
+    background-size: 100% 100%, 100% 100%!important;
+    transition-duration: .3s!important;
+    box-shadow: none!important
+}
+
+.bootstrap-select .btn:focus{
+  outline: none !important;
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+  text-decoration: none;
+    background-color: $primary !important;
+    color: #fff !important;
+}
+
+form .form-group .error {
+    font-size: .8rem;
+    color: #f44336
+}
+
+.form-group.has-error .fileinput .fileinput-preview {
+    color: #f44336
+}
+
+.form-group.has-error .fileinput .thumbnail {
+    border-color: #f44336
+}
+
+.copyToClipBoardBtn{
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+    color: #fff;
+    width: 20px;
+    height: 20px;
+    &:focus{
+        outline: none;
+    }
+    .material-icons{
+        font-size: 16px;
+    }
+}
+
+.custom-file-upload-hidden {
+    display: none;
+    visibility: hidden;
+    position: absolute;
+    left: -9999px;
+}
+.custom-file-upload {
+    display: block;
+    width: auto;
+    font-size: 16px;
+    margin-top: 30px;
+    //border: 1px solid #ccc;
+    label {
+        display: block;
+        margin-bottom: 5px;
+    }
+}
+
+$background: #202940;
+$file-upload-color: #873b93;
+$file-upload-size: 300px;
+
+.file-upload-wrapper {
+    position: relative; 
+    margin-bottom: 5px;
+    //border: 1px solid #ccc;
+}
+.file-upload-input {
+    width: $file-upload-size;
+    color: #fff;
+    font-size: 16px;
+    padding: 11px 17px; 
+    border: none;
+    background-color: $background; 
+    float: left; /* IE 9 Fix */
+    &:hover, &:focus { 
+        background-color: darken($file-upload-color, 5);
+        outline: none; 
+    }
+}
+.file-upload-button {
+    cursor: pointer; 
+    display: inline-block; 
+    color: #fff;
+    font-size: 14px;
+    padding: 11px 20px; 
+    border: none;
+    margin-left: -1px;  
+    background-color: darken($file-upload-color, 10); 
+    float: left; /* IE 9 Fix */
+}

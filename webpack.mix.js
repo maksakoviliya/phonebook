@@ -20,8 +20,11 @@ mix.scripts([
         'resources/js/dashboard/plugins/github-buttons.min.js',
         'resources/js/dashboard/plugins/chartist.min.js',
         'resources/js/dashboard/plugins/bootstrap-notify.js',
+        'resources/js/dashboard/plugins/bootstrap-select.js',
+        'resources/js/dashboard/plugins/fileinput.js',
+        'node_modules/clipboard/dist/clipboard.js',
         'resources/js/dashboard/material-dashboard.js',
         'resources/js/dashboard/demo.js',
-        'resources/js/app.js'], 'public/js/app.js').version()
-    .sass('resources/sass/app.scss', 'public/css')
+        'resources/js/app.js'], 'public/js/app.js')
+    .sass('resources/sass/app.scss', 'public/css').sourceMaps()
      .browserSync('localhost:8000');

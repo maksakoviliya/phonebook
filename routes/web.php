@@ -17,4 +17,15 @@ Route::get('/', 'PagesController@home')->name('home');
 
 Auth::routes();
 
-Route::get('/dashboard', 'PagesController@index')->name('dashboard');
+// Route::prefix('api')->group(function () {
+  
+// });
+
+Route::middleware(['isadmin'])->group(function () {
+  Route::get('/dashboard', 'PagesController@index')->name('dashboard');
+  Route::resource('/phonebooks', 'PhoneBookController')->names('phonebooks');
+  Route::resource('/customers', 'CustomerController')->names('customers');
+  Route::resource('/users', 'UserController')->names('users');
+  
+  Route::post('codes/create', 'CodeController@create')->name('codes.create');
+});
