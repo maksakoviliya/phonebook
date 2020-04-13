@@ -33,19 +33,74 @@
                 @foreach ($phonebooks as $phonebook)
                 <tr>
                   <td>{{ $phonebook->id }}</td>
-                  <td><a href="{{ route('phonebooks.edit', $phonebook->id) }}">{{ $phonebook->title }}</a></td>
-                  <td>{{ $phonebook->phonebooks->count() }}</td>
-                  <td>{{ count($phonebook->contacts) }}</td>
+                  <td class="w-50"><a href="{{ route('phonebooks.edit', $phonebook->id) }}">{{ $phonebook->title }}</a></td>
+                  <td class="w-25">{{ $phonebook->phonebooks->count() }}</td>
+                  <td class="w-25">{{ count($phonebook->contacts) }}</td>
                   <td class="td-actions text-right">
                     <a href="{{ route('phonebooks.edit', $phonebook->id) }}" rel="tooltip" title="Просомтр" class="btn btn-white btn-link btn-sm">
                       <i class="material-icons">edit</i>
                     </a>
                   </td>
                 </tr>
+                @if ($phonebook->phonebooks->count())
+                  <tr>
+                    <td colspan="5" class="pr-0 pl-5">
+                      <div class="table-responsive">
+                        <table class="table mb-0 bg-dark">
+                          <tbody>
+                            @foreach ($phonebook->phonebooks as $subPhonebook)
+                            <tr>
+                              <td>{{ $subPhonebook->id }}</td>
+                              <td class="w-50"><a href="{{ route('phonebooks.edit', $subPhonebook->id) }}">{{ $subPhonebook->title }}</a></td>
+                              <td class="w-25">{{ $subPhonebook->phonebooks->count() }}</td>
+                              <td class="w-25">{{ count($subPhonebook->contacts) }}</td>
+                              <td class="td-actions text-right">
+                                <a href="{{ route('phonebooks.edit', $subPhonebook->id) }}" rel="tooltip" title="Просомтр" class="btn btn-white btn-link btn-sm">
+                                  <i class="material-icons">edit</i>
+                                </a>
+                              </td>
+                            </tr>
+
+                            @if ($subPhonebook->phonebooks->count())
+                              <tr>
+                                <td colspan="5" class="pr-0 pl-5">
+                                  <div class="table-responsive">
+                                    <table class="table mb-0 bg-grey">
+                                      <tbody>
+                                        @foreach ($subPhonebook->phonebooks as $subSubPhonebook)
+                                          <tr>
+                                            <td>{{ $subSubPhonebook->id }}</td>
+                                            <td class="w-50"><a href="{{ route('phonebooks.edit', $subSubPhonebook->id) }}">{{ $subSubPhonebook->title }}</a></td>
+                                            <td class="w-25">{{ $subSubPhonebook->phonebooks->count() }}</td>
+                                            <td class="w-25">{{ count($subSubPhonebook->contacts) }}</td>
+                                            <td class="td-actions text-right">
+                                              <a href="{{ route('phonebooks.edit', $subSubPhonebook->id) }}" rel="tooltip" title="Просомтр" class="btn btn-white btn-link btn-sm">
+                                                <i class="material-icons">edit</i>
+                                              </a>
+                                            </td>
+                                          </tr>
+                                        @endforeach
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </td>
+                              </tr>
+                            @endif
+
+                            @endforeach
+                          </tbody>
+                        </table>
+                      </div>
+                    </td>
+                  </tr>
+                @endif
                 @endforeach
               </tbody>
             </table>
           </div>
+        </div>
+        <div class="card-footer">
+          {{$phonebooks->links()}}
         </div>
       </div>
     </div>

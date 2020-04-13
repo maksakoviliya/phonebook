@@ -11,7 +11,7 @@
   @method('PUT')
 
   <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-7">
       <div class="card">
         <div class="card-header card-header-primary">
           <h4 class="card-title">{{ $user->name }}</h4>
@@ -52,7 +52,7 @@
         </div>
       </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-5">
       <div class="card card-stats">
         <div class="card-header card-header-info card-header-icon">
           <div class="card-icon">
@@ -61,7 +61,32 @@
           <h3 class="card-title">Примененные коды</h3>
         </div>
         <div class="card-body text-left">
-          <p>\{\{Активные коды\}\}</p>
+          @if ($user->activations->count() > 0 )
+          
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead >
+                    <th>#</th>
+                    <th>Заказчик</th>
+                    <th>Справочник</th>
+                    <th>Код</th>
+                  </thead>
+                  <tbody>
+                    @foreach ($user->activations as $activation)
+                    <tr">
+                      <td class="align-top">{{ $activation->code->id }}</td>
+                      <td class="align-top"><a href="{{ route('phonebooks.edit',$activation->code->customer->id ) }}">{{ $activation->code->customer->name }}</a></td>
+                      <td class="align-top"><a href="{{ route('customers.edit',$activation->code->phonebook->id ) }}">{{ $activation->code->phonebook->title }}</a></td>
+                      <td class="align-top">{{ $activation->code->code }}</td>
+                    </tr>
+                    @endforeach
+                  </tbody>
+                </table>
+              </div>
+          @else
+          <p>no codes</p>
+          @endif
+
         </div>
       </div>
     </div>

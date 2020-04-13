@@ -59,7 +59,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::findOrFail($id);
+        $user = User::where('id', $id)->with(['activations.code.customer', 'activations.code.phonebook'])->first();
+
+        // dd($user);
 
         return view('users.edit', compact('user'));
     }

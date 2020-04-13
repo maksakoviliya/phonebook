@@ -11741,9 +11741,9 @@ tbody.collapse.show {
 }
 
 .page-link:hover {
-  color: #0a6ebd;
+  color: #ffffff;
   text-decoration: none;
-  background-color: #e9ecef;
+  background-color: rgba(225, 190, 231, 0.3);
   border-color: #dee2e6;
 }
 
@@ -11771,8 +11771,8 @@ tbody.collapse.show {
 .page-item.active .page-link {
   z-index: 1;
   color: #ffffff;
-  background-color: #2196f3;
-  border-color: #2196f3;
+  background-color: #7b1fa2;
+  border-color: #7b1fa2;
 }
 
 .page-item.disabled .page-link {
@@ -28741,5 +28741,9 @@ form .form-group .error {
   background-color: #662c6f;
   float: left;
   /* IE 9 Fix */
+}
+
+.bg-grey {
+  background-color: #3e2723 !important;
 }
 
