@@ -27,6 +27,7 @@
                   <th>#</th>
                   <th>Название</th>
                   <th>Телефон</th>
+                  <th>Ключи</th>
                   <th>Дата регистрации</th>
                   <th></th>
                 </thead>
@@ -36,6 +37,7 @@
                     <td>{{ $user->id }}</td>
                     <td><a href="{{ route('users.edit', $user->id) }}">{{ $user->name }}</a></td>
                     <td><a href="tel:{{$user->phone}}" rel="tooltip" title="Позвонить">{{ $user->phone }}</a></td>
+                    <td>{{ $user->activations->count() }}</td>
                     <td>{{ $user->created_at->format('d M Y') }}</td>
                     <td class="td-actions text-right">
                       <a href="{{ route('users.edit', $user->id) }}" rel="tooltip" title="Просомтр" class="btn btn-white btn-link btn-sm">
