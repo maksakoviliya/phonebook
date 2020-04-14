@@ -24,9 +24,13 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function sms(\Nutnet\LaravelSms\SmsSender $smsSender)
     {
-        //
+        // $smsSender = new SmsSender;
+
+        $smsSender->send('89193216754', 'Здесь текст сообщений');
+
+        return response()->json(['succcess'=>$smsSender]);
     }
 
     /**

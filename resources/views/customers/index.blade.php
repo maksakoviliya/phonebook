@@ -35,7 +35,7 @@
                   <td><a href="{{ route('customers.edit', $customer->id) }}">{{ $customer->name }}</a></td>
                   <td><a href="tel:{{$customer->phone}}" rel="tooltip" title="Позвонить">{{ $customer->phone }}</a></td>
                   <td class="td-actions text-right">
-                    <a href="{{ route('customers.edit', $customer->id) }}" rel="tooltip" title="Просомтр" class="btn btn-white btn-link btn-sm">
+                    <a href="{{ route('customers.edit', $customer->id) }}" rel="tooltip" title="Просмотр" class="btn btn-white btn-link btn-sm">
                       <i class="material-icons">edit</i>
                     </a>
                   </td>

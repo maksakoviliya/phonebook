@@ -40,7 +40,7 @@
                     <td>{{ $user->activations->count() }}</td>
                     <td>{{ $user->created_at->format('d M Y') }}</td>
                     <td class="td-actions text-right">
-                      <a href="{{ route('users.edit', $user->id) }}" rel="tooltip" title="Просомтр" class="btn btn-white btn-link btn-sm">
+                      <a href="{{ route('users.edit', $user->id) }}" rel="tooltip" title="Просмотр" class="btn btn-white btn-link btn-sm">
                         <i class="material-icons">edit</i>
                       </a>
                     </td>

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class PhoneBook extends Model
 {
-    protected $fillable = ['title', 'full_name', 'description', 'parent_id', 'contacts'];
+    protected $fillable = ['title', 'full_name', 'description', 'parent_id', 'contacts', 'site', 'address', 'email'];
     protected $casts = ['contacts' => 'json'];
 
     public function phonebooks()

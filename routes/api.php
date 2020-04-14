@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::post('/activate', 'ActivationController@create');
 Route::post('/show', 'ActivationController@show');
 
+Route::post('/sms', 'UserController@sms');
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
