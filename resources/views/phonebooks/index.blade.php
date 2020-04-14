@@ -18,7 +18,7 @@
               <p class="card-category">Список всех справочников</p>
             @endif
           </div>
-          <search-phone-books></search-phone-books>
+          <search-phone-books base-url="{{ config('app.url') }}"></search-phone-books>
           <a href="{{ route('phonebooks.create') }}" class="btn btn-success">
             <i class="material-icons">add</i>
             Добавить
