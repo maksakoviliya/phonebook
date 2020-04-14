@@ -10,8 +10,10 @@ const mix = require('laravel-mix');
  | file for the application as well as bundling up all the JS files.
  |
  */
+mix.js('resources/js/app.js', 'public/js/app.js')
 
-mix.scripts([
+mix
+.scripts([
         'resources/js/dashboard/core/jquery.min.js',
         'resources/js/dashboard/core/popper.min.js',
         'resources/js/dashboard/core/bootstrap-material-design.min.js',
@@ -25,6 +27,7 @@ mix.scripts([
         'node_modules/clipboard/dist/clipboard.js',
         'resources/js/dashboard/material-dashboard.js',
         'resources/js/dashboard/demo.js',
-        'resources/js/app.js'], 'public/js/app.js')
+        'resources/js/vue-compiled.js',
+        'resources/js/scripts.js'], 'public/js/scripts.js')
     .sass('resources/sass/app.scss', 'public/css').sourceMaps()
      .browserSync('localhost:8000');

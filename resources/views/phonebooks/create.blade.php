@@ -88,7 +88,7 @@
               </div>
             </div>
             <button type="submit" class="btn btn-success pull-right">Добавить</button>
-            <a href="{{ url()->previous() }}" class="btn btn-outline-light">Отменить</a>
+            <a href="{{ route('phonebooks.index') }}" class="btn btn-outline-light">Отменить</a>
             <div class="clearfix"></div>
         </div>
       </div>
@@ -102,21 +102,7 @@
           <h3 class="card-title">К кому относится</h3>
         </div>
         <div class="card-body text-left">
-          <div class="row">
-            <div class="col">
-              <div class="dropdown bootstrap-select show- w-100">
-                <select class="selectpicker" data-style="select-with-transition" title="Выберите организацию" data-size="7" tabindex="-98" name="parent_id">
-                    <option value="0">Самостоятельная организация</option>
-                  @foreach ($phonebooks as $phonebook)
-                    <option value="{{$phonebook->id}}">{{$phonebook->title}}</option>
-                  @endforeach
-                </select>
-              </div>
-              @error('parent_id')
-                <label id="parent_id-error" class="error" for="parent_id-error">{{ $message }}</label>
-              @enderror
-            </div>
-          </div>
+          <phone-book-parent></phone-book-parent>
         </div>
       </div>
       <div class="card card-stats">

@@ -54,7 +54,7 @@
             <div class="d-flex align-items-center justify-content-between">
               <div>
                 <button type="submit" class="btn btn-success pull-right">Изменить</button>
-                <a href="{{ url()->previous() }}" class="btn btn-outline-light">Отменить</a>
+                <a href="{{ route('customers.index') }}" class="btn btn-outline-light">Отменить</a>
               </div>
               <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteCustomer"><i class="material-icons">delete</i> Удалить</button>
             </div>
@@ -73,7 +73,14 @@
         <div class="card-body text-left">
             <div class="form-group @error('files_link') has-danger @enderror">
               <label class="bmd-label-floating">Ссылка на файлы</label>
-              <input type="text" class="form-control" name="files_link" value="{{ old('_token') || old('files_link') ? old('files_link') : $customer->files_link }}">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <a href="{{ old('_token') || old('files_link') ? old('files_link') : $customer->files_link }}" class="btn btn-info btn-sm" target="_blank">
+                    <i class="material-icons">link</i>
+                  </a>
+                </div>
+                <input type="text" class="form-control pl-3"  name="files_link" value="{{ old('_token') || old('files_link') ? old('files_link') : $customer->files_link }}">
+              </div>
               @error('files_link')
                 <label id="files_link-error" class="error" for="files_link-error">{{ $message }}</label>
               @enderror

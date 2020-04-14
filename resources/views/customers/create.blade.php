@@ -48,7 +48,7 @@
               </div>
             </div>
             <button type="submit" class="btn btn-success pull-right">Добавить</button>
-            <a href="{{ url()->previous() }}" class="btn btn-outline-light">Отменить</a>
+            <a href="{{ route('customers.index') }}" class="btn btn-outline-light">Отменить</a>
             <div class="clearfix"></div>
         </div>
       </div>

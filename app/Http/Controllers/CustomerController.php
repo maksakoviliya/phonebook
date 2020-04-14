@@ -88,9 +88,24 @@ class CustomerController extends Controller
      * @param  \App\Customer  $customer
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Customer $customer)
+    public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'name'        => 'required|max:255',
+            'phone'       => ["unique:customers,phone,$id",'regex:/^(\+7|8)+([0-9]{10})$/'],
+            'description' => 'max:600',
+            'files_link'  => 'max:255',
+        ]);
+
+        $customer = Customer::findOrFail($id)->update([
+            'name'        => $request->name,
+            'phone'       => $request->phone,
+            'description' => $request->description,
+            'files_link'  => $request->files_link,
+        ]);
+
+        $successText = 'Информация о заказчике успешно обновлена!';
+        return redirect()->route('customers.edit', compact('customer'))->with('success', $successText);
     }
 
     /**

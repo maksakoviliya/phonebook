@@ -14,7 +14,7 @@
 </head>
 
 <body class="dark-edition">
-  <div class="wrapper ">
+  <div class="wrapper">
 
 
     <div class="sidebar" data-color="purple" data-background-color="black" data-image="{{ asset('img/sidebar-2.jpg') }}">
@@ -148,8 +148,10 @@
           </nav>
           <!-- End Navbar -->
           <div class="content">
-
-            @yield('content')
+            
+            <div id="app">
+              @yield('content')
+            </div>
             
             <footer class="footer">
               <div class="container-fluid">
@@ -178,19 +180,15 @@
                   </ul>
                 </nav>
                 <div class="copyright float-right" id="date">
-                  , made with <i class="material-icons">favorite</i> by
+                  2020, made with <i class="material-icons">favorite</i> by
                   <a href="https://github.com/maksakoviliya/phonebook.git" target="_blank">Maksak_il</a>
                 </div>
               </div>
             </footer>
-            <script>
-              const x = new Date().getFullYear();
-              let date = document.getElementById('date');
-              date.innerHTML = '&copy; ' + x + date.innerHTML;
-            </script>
           </div>
         </div>
         <!--   Core JS Files   -->
+        <script src="{{ mix('/js/scripts.js') }}"></script>
         <script src="{{ mix('/js/app.js') }}"></script>
         {{-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script> --}}
 

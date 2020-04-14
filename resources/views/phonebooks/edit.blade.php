@@ -96,7 +96,7 @@
             <div class="d-flex align-items-center justify-content-between">
               <div>
                 <button type="submit" class="btn btn-primary pull-right">Обновить</button>
-                <a href="{{ redirect()->back() }}" class="btn btn-outline-light">Отменить</a>
+                <a href="{{ route('phonebooks.index') }}" class="btn btn-outline-light">Отменить</a>
               </div>
                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deletePhoneBook"><i class="material-icons">delete</i> Удалить</button>
             </div>
@@ -146,29 +146,9 @@
             <h3 class="card-title">К кому относится</h3>
           </div>
           <div class="card-body text-left">
-            <div class="row">
-              <div class="col">
-                <div class="dropdown bootstrap-select show- w-100">
-                  <select class="selectpicker" data-style="select-with-transition" data-width="100%" title="Выберите организацию" data-size="7" tabindex="-98" name="parent_id">
-                    @if ($phonebook->parent_id == 0)
-                      <option value="0" selected="">Самостоятельная организация</option>
-                    @else
-                      <option value="0">Самостоятельная организация</option>
-                    @endif
-                    @foreach ($phonebooks as $category)
-                      @if ($category->id != $phonebook->id)
-                        <option value="{{$category->id}}" @if ($category->id == $phonebook->parent_id) selected @endif>
-                          {{$category->title}}
-                        </option>
-                      @endif
-                    @endforeach
-                  </select>
-                </div>
-                @error('parent_id')
-                  <label id="parent_id-error" class="error text-danger" for="parent_id-error">{{ $message }}</label>
-                @enderror
-              </div>
-            </div>
+
+          <phone-book-parent initial-id="{{ $phonebook->parent_id}}" initial-title="{{$phonebook->phonebook ? $phonebook->phonebook->title : 'Самостоятельная организация'}}"></phone-book-parent> 
+
           </div>
         </div>
         <div class="card card-stats">
