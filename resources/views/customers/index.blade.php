@@ -14,6 +14,7 @@
             <h4 class="card-title ">Заказчики</h4>
             <p class="card-category">Список всех заказчиков</p>
           </div>
+          <search-customers></search-customers>
           <a href="{{ route('customers.create') }}" class="btn btn-success">
             <i class="material-icons">add</i>
             Добавить

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-click-outside="onClickOutside">
         <input type="text" name="parent_id" v-model="selectedItem.id" hidden="">
         <div class="parent-select">
             <div class="parent-select__input mt-2" @click="openList">
@@ -15,7 +15,6 @@
                 </ul>
                 <div class="d-flex align-items-center justify-content-center pb-2">
                     <a href="#" class="toStart" @click.prevent="fetch({id: 0})"><i class="material-icons">keyboard_arrow_left</i> В начало</a>
-                    <a href="#" class="toStart text-right" @click.prevent="hideList"><i class="material-icons">close</i> Закрыть</a>
                 </div>
             </div>
         </div>
@@ -24,6 +23,8 @@
 
 <script>
     import axios from 'axios'
+    import vClickOutside from 'v-click-outside'
+
     export default {
         props: {
             initialId: {
@@ -33,6 +34,9 @@
                 type: String,
                 default: 'Самостоятельная организация'
             }
+        },
+        directives: {
+          clickOutside: vClickOutside.directive
         },
         data () {
             return {
@@ -76,6 +80,9 @@
             setSelectedItem(phonebook) {
                 this.hideList()
                 this.selectedItem = phonebook
+            },
+            onClickOutside (event) {
+              this.hideList()
             }
         }
     }

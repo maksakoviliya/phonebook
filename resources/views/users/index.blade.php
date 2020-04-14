@@ -14,6 +14,7 @@
             <h4 class="card-title ">Пользователи</h4>
             <p class="card-category">Список всех пользователей</p>
           </div>
+           <search-users></search-users>
           {{-- <a href="{{ route('users.create') }}" class="btn btn-success">
             <i class="material-icons">add</i>
             Добавить

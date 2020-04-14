@@ -19,6 +19,15 @@ class UserController extends Controller
         return view('users.index', compact('users'));
     }
 
+     public function search(Request $request)
+    {   
+        // dd($request->all());
+        $users = User::where('name', 'like', '%'.$request->search.'%')
+                                ->orWhere('phone','LIKE','%'.$request->search.'%')->limit(6)->select('id', 'name')->get();
+
+        return response()->json(compact('users'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *

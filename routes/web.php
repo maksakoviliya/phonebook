@@ -29,6 +29,8 @@ Route::middleware(['isadmin'])->group(function () {
 
   Route::get('/api/phonebooks/{id?}', 'PhoneBookController@all')->name('phonebooks.all');
   Route::get('/api/search/phonebooks', 'PhoneBookController@search')->name('phonebooks.search');
+  Route::get('/api/search/customers', 'CustomerController@search')->name('customers.search');
+  Route::get('/api/search/users', 'UserController@search')->name('users.search');
   
   Route::post('codes/create', 'CodeController@create')->name('codes.create');
 });

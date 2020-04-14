@@ -20,6 +20,15 @@ class CustomerController extends Controller
       return view('customers.index', compact('customers'));
     }
 
+     public function search(Request $request)
+    {   
+        // dd($request->all());
+        $customers = Customer::where('name', 'like', '%'.$request->search.'%')
+                                ->orWhere('phone','LIKE','%'.$request->search.'%')->limit(6)->select('id', 'name')->get();
+
+        return response()->json(compact('customers'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
