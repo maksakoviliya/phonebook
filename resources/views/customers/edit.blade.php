@@ -195,7 +195,7 @@
               <div class="dropdown bootstrap-select w-100">
                 <select class="selectpicker" data-size="7" data-style="btn btn-primary" required="" data-width="100%" title="Выберите справочник" tabindex="-98" name="phonebook_id">
                   @foreach ($phonebooks as $phonebook)
-                    @if (! in_array($phonebook->id, $customer->code_phonebooks_ids->toArray()))
+                    @if ($phonebook->parent_id == 0)
                       <option value="{{$phonebook->id}}">{{$phonebook->title}}</option>
                     @endif
                   @endforeach
