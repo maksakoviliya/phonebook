@@ -28,8 +28,8 @@ class ActivationController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create(Request $request)
-    {
-            if(! $user = User::find($request->user_id)) {
+    {   
+            if(! $user = User::find(Auth()->user()->id)) {
                 return response()->json(['error'=>'No such user']);
             }
             if(! $code = Code::where('code', $request->code)->first()){
@@ -68,7 +68,7 @@ class ActivationController extends Controller
             $contacts = $phoneBook->contacts;
             
 
-        return response()->json(['success'=>'Activation created successfully', 'contacts'=>$contacts]);
+        return new PhonebooksResource($phoneBook);
     }
 
     /**
@@ -89,7 +89,7 @@ class ActivationController extends Controller
      */
     public function show(Request $request)
     {
-        if(! $user = User::find($request->user_id)) {
+        if(! $user = User::find(Auth()->user()->id)) {
             return response()->json(['error'=>'No such user']);
         }
         if(! $code = Code::where('code', $request->code)->first()){

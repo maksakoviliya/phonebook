@@ -14,11 +14,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/activate', 'ActivationController@create');
-Route::post('/show', 'ActivationController@show');
 
-Route::post('/sms', 'UserController@sms');
+Route::post('/sendsms', 'UserController@getCode'); // phone
+Route::post('/register', 'UserController@register'); // phone,code,name
+Route::post('/gettoken', 'ApiTokenController@update')->name('gettoken'); // user_id
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:api')->group(function () {
+    Route::post('/activate', 'ActivationController@create');
+    Route::post('/show', 'ActivationController@show');
+    Route::get('/user', function ()
+    {
+      return response()->json(['user'=>Auth()->user()]);
+    });
 });

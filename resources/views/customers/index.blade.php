@@ -25,8 +25,9 @@
             <table class="table table-hover">
               <thead class=" text-primary">
                 <th>#</th>
-                <th>Название</th>
+                <th>Фамилия Имя</th>
                 <th>Телефон</th>
+                <th>Коды</th>
                 <th></th>
               </thead>
               <tbody>
@@ -35,6 +36,7 @@
                   <td>{{ $customer->id }}</td>
                   <td><a href="{{ route('customers.edit', $customer->id) }}">{{ $customer->name }}</a></td>
                   <td><a href="tel:{{$customer->phone}}" rel="tooltip" title="Позвонить">{{ $customer->phone }}</a></td>
+                  <td>{{ $customer->codes->count() }}</td>
                   <td class="td-actions text-right">
                     <a href="{{ route('customers.edit', $customer->id) }}" rel="tooltip" title="Просмотр" class="btn btn-white btn-link btn-sm">
                       <i class="material-icons">edit</i>

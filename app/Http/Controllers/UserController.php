@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use Nutnet\LaravelSms\SmsSender;
 
 class UserController extends Controller
 {
@@ -28,18 +32,73 @@ class UserController extends Controller
         return response()->json(compact('users'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function sms(\Nutnet\LaravelSms\SmsSender $smsSender)
+    
+    public function getCode(Request $request)
     {
-        // $smsSender = new SmsSender;
+        // $request - phone
 
-        $smsSender->send('89193216754', 'Здесь текст сообщений');
+        // $code = rand(1000,9999);
+        $code = '1111';
 
-        return response()->json(['succcess'=>$smsSender]);
+        $now = Carbon::now();
+        $expires = Carbon::now()->addMinutes(10);
+
+        $user = User::where('phone', $request->phone)->first();
+        if ($user) {
+            return response()->json(['response'=>'Уже зарегистрирован']);
+        }
+
+        $phone = DB::table('sms_code')->where('phone', $request->phone)->first();
+        // return response()->json(['$now'=>$now->subMinutes(1), '$phone->created_at'=>Carbon::create($phone->created_at)]);
+        if ($phone) {
+            if ($now->subMinutes(1) < $phone->created_at) {
+                return response()->json(['response'=>'Не прошла минута']);
+            } else {
+                DB::table('sms_code')->where('phone', $request->phone)->delete();
+            }
+        }
+
+        DB::table('sms_code')->insert([
+            'phone' => $request->phone,
+            'code' => $code,
+            'expires_at' => $expires,
+            'created_at' => $now,
+        ]);
+
+        return response()->json(['success'=>'success']);
+    }
+
+    public function register(Request $request)
+    {
+        // $request - phone
+        // $request - code
+        // $request - name
+
+        $now = Carbon::now();
+
+        $user = User::where('phone', $request->phone)->first();
+        if ($user) {
+            return response()->json(['response'=>'Уже зарегистрирован']);
+        }
+
+        $phone = DB::table('sms_code')->where('phone', $request->phone)->first();
+        if (!$phone) {
+            return response()->json(['response'=>'Нет кода для этого пользователя']);
+        }
+        if ($now > Carbon::create($phone->expires_at)) {
+            return response()->json(['response'=>'Код уже не действует']);
+        }
+        if ($request->code != $phone->code) {
+            return response()->json(['response'=>'Неверный код']);
+        }
+        DB::table('sms_code')->where('phone', $request->phone)->delete();
+
+        $userId = User::create([
+            'name'      => $request->name,
+            'phone'     => $request->phone,
+        ]);
+
+        return redirect()->route('gettoken', compact('userId'));
     }
 
     /**
