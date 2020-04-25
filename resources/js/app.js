@@ -2,8 +2,8 @@
 import Vue from 'vue'
 import axios from 'axios'
 
-axios.defaults.baseURL = 'http://localhost:3000/'
-// axios.defaults.baseURL = 'http://telsparv.appsj.ru'
+// axios.defaults.baseURL = 'http://localhost:3000/'
+axios.defaults.baseURL = 'http://telsparv.appsj.ru'
 import PhoneBookParent from './components/PhoneBookParent.vue'
 
 import SearchPhoneBooks from './components/SearchPhoneBooks.vue'
