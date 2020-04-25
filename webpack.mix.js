@@ -25,8 +25,9 @@ mix
         'resources/js/dashboard/plugins/bootstrap-select.js',
         'resources/js/dashboard/plugins/fileinput.js',
         'node_modules/clipboard/dist/clipboard.js',
+        'node_modules/chart.js/dist/Chart.js',
         'resources/js/dashboard/material-dashboard.js',
-        'resources/js/dashboard/demo.js',
+        // 'resources/js/dashboard/demo.js',
         'resources/js/vue-compiled.js',
         'resources/js/scripts.js'], 'public/js/scripts.js')
     .sass('resources/sass/app.scss', 'public/css').sourceMaps()

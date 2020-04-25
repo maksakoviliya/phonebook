@@ -2,12 +2,14 @@
 import Vue from 'vue'
 import axios from 'axios'
 
-axios.defaults.baseURL = 'http://telsparv.appsj.ru' 
+axios.defaults.baseURL = 'http://localhost:3000/'
+// axios.defaults.baseURL = 'http://telsparv.appsj.ru'
 import PhoneBookParent from './components/PhoneBookParent.vue'
 
 import SearchPhoneBooks from './components/SearchPhoneBooks.vue'
 import SearchCustomers from './components/SearchCustomers.vue'
 import SearchUsers from './components/SearchUsers.vue'
+import SearchContacts from './components/SearchContacts.vue'
 
 import vClickOutside from 'v-click-outside'
 
@@ -20,6 +22,7 @@ const App = new Vue({
       'search-phone-books': SearchPhoneBooks,
       'search-customers': SearchCustomers,
       'search-users': SearchUsers,
+      'search-contacts': SearchContacts,
     },
    
 });

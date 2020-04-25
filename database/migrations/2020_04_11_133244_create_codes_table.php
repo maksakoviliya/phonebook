@@ -21,6 +21,8 @@ class CreateCodesTable extends Migration
             $table->string('code')->unique();
             $table->bigInteger('users_count')->unsigned()->nullable();
             $table->timestamps();
+
+            $table->foreign('phonebook_id')->references('id')->on('phone_books')->onDelete('cascade');
         });
     }
 

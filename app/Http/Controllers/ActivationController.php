@@ -8,6 +8,8 @@ use App\PhoneBook;
 use App\User;
 use Illuminate\Http\Request;
 
+use App\Http\Resources\Phonebooks as PhonebooksResource;
+
 class ActivationController extends Controller
 {
     /**
@@ -62,6 +64,7 @@ class ActivationController extends Controller
             if (! $phoneBook = PhoneBook::find($code->phonebook_id)) {
                 return response()->json(['error'=>'Ошибка - нет такого справочника']);
             }
+
             $contacts = $phoneBook->contacts;
             
 
@@ -100,9 +103,12 @@ class ActivationController extends Controller
         if (! $phoneBook = PhoneBook::find($code->phonebook_id)) {
             return response()->json(['error'=>'Ошибка - нет такого справочника']);
         }
-        $contacts = $phoneBook->contacts;
 
-        return response()->json(['contacts'=>$contacts]);
+        return new PhonebooksResource($phoneBook);
+        // return PhonebooksResource::collection($phoneBook);
+        // $contacts = $phoneBook;
+
+        // return response()->json(['contacts'=>$contacts]);
     }
 
     /**

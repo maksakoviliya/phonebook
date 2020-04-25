@@ -27,12 +27,12 @@
 
       <div class="sidebar-wrapper">
         <ul class="nav">
-          <li class="nav-item {{ Request::is('dashboard') ? 'active' :  '' }}">
+          {{-- <li class="nav-item {{ Request::is('dashboard') ? 'active' :  '' }}">
             <a class="nav-link" href="{{ route('dashboard') }}">
               <i class="material-icons">dashboard</i>
               <p>Панель управления</p>
             </a>
-          </li>
+          </li> --}}
           <li class="nav-item {{ Request::is('phonebooks'.'*') ? 'active' :  '' }}">
             <a class="nav-link" href="{{ route('phonebooks.index') }}">
               <i class="material-icons">library_books</i>
@@ -190,6 +190,7 @@
         <!--   Core JS Files   -->
         <script src="{{ mix('/js/scripts.js') }}"></script>
         <script src="{{ mix('/js/app.js') }}"></script>
+        @yield('scripts')
         {{-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script> --}}
 
       </body>

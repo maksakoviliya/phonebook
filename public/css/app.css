@@ -28708,6 +28708,18 @@ form .form-group .error {
   margin-bottom: 5px;
 }
 
+.custom-file-upload .file-upload-input {
+  width: 100%;
+}
+
+.custom-file-upload .file-upload-wrapper {
+  white-space: nowrap;
+}
+
+.custom-file-upload .file-upload-wrapper {
+  display: flex;
+}
+
 .file-upload-wrapper {
   position: relative;
   margin-bottom: 5px;

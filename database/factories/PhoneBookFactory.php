@@ -12,6 +12,5 @@ $factory->define(PhoneBook::class, function (Faker $faker) {
     'title'       => $faker->sentence(rand(3,5), true),
     'full_name'   => $faker->sentence(rand(8,10), true),
     'description' => $faker->realText(rand(400, 500)), 
-    'contacts'    => [],
   ];
 });

@@ -87,6 +87,15 @@ form .form-group .error {
         display: block;
         margin-bottom: 5px;
     }
+    .file-upload-input {
+        width: 100%;
+    }
+    .file-upload-wrapper {
+        white-space: nowrap;
+    }
+    .file-upload-wrapper {
+        display: flex;
+    }
 }
 
 $background: #202940;

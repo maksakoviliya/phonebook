@@ -2,7 +2,7 @@
 
 namespace App\Imports;
 
-use App\PhoneBook;
+use App\Contact;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
@@ -15,7 +15,7 @@ class PhoneBookImport implements ToModel, WithHeadingRow
     */
     public function model(array $row)
     {
-        return new PhoneBook([
+        return new Contact([
             //
         ]);
     }

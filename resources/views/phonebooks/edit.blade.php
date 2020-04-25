@@ -156,11 +156,11 @@
             <div class="card-icon">
               <i class="material-icons">contact_phone</i>
             </div>
-            <p class="card-category">Контакты</p>
-            <h3 class="card-title">{{count($phonebook->contacts)}}</h3>
+            <p class="card-category">Контакты <span class="h3">{{$phonebook->contacts->count()}}</span></p>
+            <h3 class="card-title"><a href="{{ route('phonebooks.contacts', $phonebook->id) }}" class="btn">Просмотр контактов</a></h3>
           </div>
           <div class="card-footer">
-            <div>
+            <div class="w-100">
               <div class="custom-file-upload w-100 mt-0">
                 <input type="file" name="file" class="btn btn-primary" value="{{old('file')}}">
                 @error('file')

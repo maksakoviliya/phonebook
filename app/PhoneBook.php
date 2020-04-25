@@ -14,12 +14,20 @@ class PhoneBook extends Model
     {
       return $this->hasMany('App\PhoneBook', 'parent_id');
     }
+    public function childrenPhonebooks()
+    {
+      return $this->hasMany('App\PhoneBook', 'parent_id')->with('phonebooks');
+    }
     public function phonebook()
     {
       return $this->belongsTo('App\PhoneBook', 'parent_id');
     }
     public function codes()
-      {
-        return $this->hasMany('App\Code', 'phonebook_id');
-      }
+    {
+      return $this->hasMany('App\Code', 'phonebook_id');
+    }
+    public function contacts()
+    {
+      return $this->hasMany('App\Contact', 'phonebook_id');
+    }
 }
