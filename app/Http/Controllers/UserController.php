@@ -45,14 +45,14 @@ class UserController extends Controller
 
         $user = User::where('phone', $request->phone)->first();
         if ($user) {
-            return response()->json(['response'=>'Уже зарегистрирован']);
+            return response()->json(['error'=>'Уже зарегистрирован']);
         }
 
         $phone = DB::table('sms_code')->where('phone', $request->phone)->first();
         // return response()->json(['$now'=>$now->subMinutes(1), '$phone->created_at'=>Carbon::create($phone->created_at)]);
         if ($phone) {
             if ($now->subMinutes(1) < $phone->created_at) {
-                return response()->json(['response'=>'Не прошла минута']);
+                return response()->json(['error'=>'Не прошла минута']);
             } else {
                 DB::table('sms_code')->where('phone', $request->phone)->delete();
             }
@@ -78,18 +78,18 @@ class UserController extends Controller
 
         $user = User::where('phone', $request->phone)->first();
         if ($user) {
-            return response()->json(['response'=>'Уже зарегистрирован']);
+            return response()->json(['error'=>'Уже зарегистрирован']);
         }
 
         $phone = DB::table('sms_code')->where('phone', $request->phone)->first();
         if (!$phone) {
-            return response()->json(['response'=>'Нет кода для этого пользователя']);
+            return response()->json(['error'=>'Нет кода для этого пользователя']);
         }
         if ($now > Carbon::create($phone->expires_at)) {
-            return response()->json(['response'=>'Код уже не действует']);
+            return response()->json(['error'=>'Код уже не действует']);
         }
         if ($request->code != $phone->code) {
-            return response()->json(['response'=>'Неверный код']);
+            return response()->json(['error'=>'Неверный код']);
         }
         DB::table('sms_code')->where('phone', $request->phone)->delete();
 
@@ -113,14 +113,14 @@ class UserController extends Controller
 
         $user = User::where('phone', $request->phone)->first();
         if (!$user) {
-            return response()->json(['response'=>'Пользователь не зарегистрирован']);
+            return response()->json(['error'=>'Пользователь не зарегистрирован']);
         }
 
         $phone = DB::table('sms_code')->where('phone', $request->phone)->first();
         // return response()->json(['$now'=>$now->subMinutes(1), '$phone->created_at'=>Carbon::create($phone->created_at)]);
         if ($phone) {
             if ($now->subMinutes(1) < $phone->created_at) {
-                return response()->json(['response'=>'Не прошла минута']);
+                return response()->json(['error'=>'Не прошла минута']);
             } else {
                 DB::table('sms_code')->where('phone', $request->phone)->delete();
             }
@@ -145,18 +145,18 @@ class UserController extends Controller
 
         $user = User::where('phone', $request->phone)->first();
         if (!$user) {
-            return response()->json(['response'=>'Пользователь не зарегистрирован']);
+            return response()->json(['error'=>'Пользователь не зарегистрирован']);
         }
 
         $phone = DB::table('sms_code')->where('phone', $user->phone)->first();
         if (!$phone) {
-            return response()->json(['response'=>'Нет кода для этого пользователя']);
+            return response()->json(['error'=>'Нет кода для этого пользователя']);
         }
         if ($now > Carbon::create($phone->expires_at)) {
-            return response()->json(['response'=>'Код уже не действует']);
+            return response()->json(['error'=>'Код уже не действует']);
         }
         if ($request->code != $phone->code) {
-            return response()->json(['response'=>'Неверный код']);
+            return response()->json(['error'=>'Неверный код']);
         }
         DB::table('sms_code')->where('phone', $user->phone)->delete();
 
