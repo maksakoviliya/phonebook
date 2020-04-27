@@ -101,6 +101,70 @@ class UserController extends Controller
         return redirect()->route('gettoken', compact('userId'));
     }
 
+    public function getlogin(Request $request)
+    {
+        // $request - phone
+
+        // $code = rand(1000,9999);
+        $code = '1111';
+
+        $now = Carbon::now();
+        $expires = Carbon::now()->addMinutes(10);
+
+        $user = User::where('phone', $request->phone)->first();
+        if (!$user) {
+            return response()->json(['response'=>'Пользователь не зарегистрирован']);
+        }
+
+        $phone = DB::table('sms_code')->where('phone', $request->phone)->first();
+        // return response()->json(['$now'=>$now->subMinutes(1), '$phone->created_at'=>Carbon::create($phone->created_at)]);
+        if ($phone) {
+            if ($now->subMinutes(1) < $phone->created_at) {
+                return response()->json(['response'=>'Не прошла минута']);
+            } else {
+                DB::table('sms_code')->where('phone', $request->phone)->delete();
+            }
+        }
+
+        DB::table('sms_code')->insert([
+            'phone' => $user->phone,
+            'code' => $code,
+            'expires_at' => $expires,
+            'created_at' => $now,
+        ]);
+
+        return response()->json(['success'=>'success']);
+    }
+
+    public function login(Request $request)
+    {
+        // $request - phone
+        // $request - code
+
+        $now = Carbon::now();
+
+        $user = User::where('phone', $request->phone)->first();
+        if (!$user) {
+            return response()->json(['response'=>'Пользователь не зарегистрирован']);
+        }
+
+        $phone = DB::table('sms_code')->where('phone', $user->phone)->first();
+        if (!$phone) {
+            return response()->json(['response'=>'Нет кода для этого пользователя']);
+        }
+        if ($now > Carbon::create($phone->expires_at)) {
+            return response()->json(['response'=>'Код уже не действует']);
+        }
+        if ($request->code != $phone->code) {
+            return response()->json(['response'=>'Неверный код']);
+        }
+        DB::table('sms_code')->where('phone', $user->phone)->delete();
+
+        $userId = $user->id;
+
+        return redirect()->route('gettoken', compact('userId'));
+    }
+
     /**
      * Store a newly created resource in storage.
      *

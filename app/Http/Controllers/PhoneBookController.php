@@ -31,6 +31,13 @@ class PhoneBookController extends Controller
       return response()->json(compact('phonebooks'));
     }
 
+    public function apiall()
+    {
+      $phonebooks = PhoneBook::where('parent_id', 0)->with('phonebooks.phonebooks')->get();
+
+      return response()->json(compact('phonebooks'));
+    }
+
     public function search(Request $request)
     {
       $phonebooks = PhoneBook::where('title', 'like', '%'.$request->search.'%')->limit(6)->select('id', 'title')->get();
