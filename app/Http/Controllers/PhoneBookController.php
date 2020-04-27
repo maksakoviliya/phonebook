@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Contact;
 use App\Imports\PhoneBookImport;
 use App\PhoneBook;
-use App\Contact;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
 
 class PhoneBookController extends Controller
@@ -84,8 +85,12 @@ class PhoneBookController extends Controller
       {
         $contacts = Excel::toArray(new PhoneBookImport, request()->file('file'))[0];
         foreach ($contacts as $contact) {
-          $contact['phonebook_id'] = $newPhonebook->id;
-          Contact::create($contact);
+          if ($contact['first_name'] != null &&
+               $contact['last_name'] != null && 
+               $contact['phone1'] != null) {
+            $contact['phonebook_id'] = $newPhonebook->id;
+            Contact::create($contact);
+          }
         }
       } 
 
@@ -168,8 +173,12 @@ class PhoneBookController extends Controller
 
         $newContacts = Excel::toArray(new PhoneBookImport, request()->file('file'))[0];
         foreach ($newContacts as $newContact) {
-          $newContact['phonebook_id'] = $phonebook->id;
-          Contact::create($newContact);
+          if ($newContact['first_name'] != null &&
+               $newContact['last_name'] != null && 
+               $newContact['phone1'] != null) {
+            $newContact['phonebook_id'] = $phonebook->id;
+            Contact::create($newContact);
+          }
         }
       } 
 
