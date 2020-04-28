@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class ApiTokenController extends Controller
@@ -12,6 +13,9 @@ class ApiTokenController extends Controller
     {
         $token = Str::random(60);
         $user = User::findOrFail($request->userId);
+
+        Log::info($user);
+
 
         $user->forceFill([
             'api_token' => hash('sha256', $token),
