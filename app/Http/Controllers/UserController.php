@@ -6,6 +6,7 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Nutnet\LaravelSms\SmsSender;
 
@@ -161,6 +162,8 @@ class UserController extends Controller
         DB::table('sms_code')->where('phone', $user->phone)->delete();
 
         $userId = $user->id;
+
+        Log::info($userId);
 
         return redirect()->route('gettoken', compact('userId'));
     }
