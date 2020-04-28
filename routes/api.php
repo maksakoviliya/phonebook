@@ -19,7 +19,7 @@ Route::post('/sendsms', 'UserController@getCode'); // phone
 Route::post('/register', 'UserController@register'); // phone,code,name
 Route::post('/getlogin', 'UserController@getlogin'); // phone
 Route::post('/login', 'UserController@login'); // phone,code
-Route::post('/gettoken', 'ApiTokenController@update')->name('gettoken'); // user_id
+Route::match(['get', 'post'], '/gettoken', 'ApiTokenController@update')->name('gettoken'); // user_id
 
 Route::middleware('auth:api')->group(function () {
     Route::post('/activate', 'ActivationController@create');
