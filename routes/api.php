@@ -23,6 +23,7 @@ Route::match(['get', 'post'], '/gettoken', 'ApiTokenController@update')->name('g
 
 Route::middleware('auth:api')->group(function () {
     Route::post('/activate', 'ActivationController@create');
+    Route::get('/codes', 'ActivationController@codes');
     Route::post('/show', 'ActivationController@show');
     Route::get('/phonebooks', 'PhoneBookController@apiall');
 });

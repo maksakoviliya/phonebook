@@ -144,4 +144,14 @@ class ActivationController extends Controller
     {
         //
     }
+
+    public function codes()
+    {
+        $codes = array_map(function($activation) {
+            return $activation['code']['code'];
+        }, Activation::where('user_id', Auth()->user()->id)->with('code')->get()->toArray());
+
+
+        return response()->json(compact('codes'));
+    }
 }
