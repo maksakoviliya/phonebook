@@ -15,9 +15,16 @@ class Phonebooks extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'phonebooks' => Phonebooks::collection($this->phonebooks),
-            'contacts' => $this->contacts,
+            'id'          => $this->id,
+            'parent_id'   => $this->parent_id,
+            'title'       => $this->title,
+            'full_name'   => $this->full_name,
+            'description' => $this->description,
+            'site'        => $this->site,
+            'address'     => $this->address,
+            'email'       => $this->email,
+            'phonebooks'  => Phonebooks::collection($this->phonebooks),
+            'contacts'    => $this->contacts,
         ];
     }
 }
