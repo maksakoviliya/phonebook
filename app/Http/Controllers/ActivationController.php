@@ -151,7 +151,9 @@ class ActivationController extends Controller
             return $activation['code']['code'];
         }, Activation::where('user_id', Auth()->user()->id)->with('code')->get()->toArray());
 
-
-        return response()->json(compact('codes'));
+        if (count($codes)) {
+            return response()->json(compact('codes'));
+        }
+        return response()->json(['error'=>'Кодов не найдено']);
     }
 }
