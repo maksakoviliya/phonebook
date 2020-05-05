@@ -30,10 +30,10 @@ class ActivationController extends Controller
     public function create(Request $request)
     {   
             if(! $user = User::find(Auth()->user()->id)) {
-                return response()->json(['error'=>'No such user']);
+                return response()->json(['error'=>'Пользователь не найден']);
             }
             if(! $code = Code::where('code', $request->code)->first()){
-                return response()->json(['error'=>'No such code']);
+                return response()->json(['error'=>'Лицензия не найдена']);
             }
             
             if (in_array($code->id, $user->activations->pluck('code_id')->toArray())) {
@@ -90,10 +90,10 @@ class ActivationController extends Controller
     public function show(Request $request)
     {
         if(! $user = User::find(Auth()->user()->id)) {
-            return response()->json(['error'=>'No such user']);
+            return response()->json(['error'=>'Пользователь не найден']);
         }
         if(! $code = Code::where('code', $request->code)->first()){
-            return response()->json(['error'=>'No such code']);
+            return response()->json(['error'=>'Лицензия не найдена']);
         }
 
         if (! in_array($code->id, $user->activations->pluck('code_id')->toArray())) {
