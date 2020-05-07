@@ -20,6 +20,7 @@
           <div class="table-responsive">
             <table class="table table-hover">
               <thead class=" text-primary">
+                <th>Фото</th>
                 <th>Фамилия</th>
                 <th>Имя</th>
                 <th>Отчество</th>
@@ -35,6 +36,7 @@
               <tbody>
                 @foreach ($contacts as $contact)
                 <tr>
+                  <td><img src="{{ strlen($contact->photo) ? $contact->photo : '/img/no-photo.svg' }}" class="img-fluid img-thumbnail bg-transparent border-0" style="max-width: 70px;"></td>
                   <td>{{ $contact->last_name }}</td>
                   <td>{{ $contact->first_name }}</td>
                   <td>{{ $contact->patronymic }}</td>
