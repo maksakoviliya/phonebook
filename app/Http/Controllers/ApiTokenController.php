@@ -14,7 +14,7 @@ class ApiTokenController extends Controller
         $token = Str::random(60);
         $user = User::findOrFail($request->userId);
 
-        Log::info($user);
+        // Log::info($user);
 
 
         $user->forceFill([
