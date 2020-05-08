@@ -21,6 +21,6 @@ class ApiTokenController extends Controller
             'api_token' => hash('sha256', $token),
         ])->save();
 
-        return response()->json(['token' => $token]);
+        return response()->json(['token' => $token, 'user' => $user]);
     }
 }
