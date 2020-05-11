@@ -87,6 +87,7 @@ class UserController extends Controller
 
     public function verifyCode(Request $request)
     {
+        $now = Carbon::now();
         $phone = DB::table('sms_code')->where('phone', $request->phone)->first();
         if (!$phone) {
             return response()->json(['error'=>'Нет кода для этого пользователя']);
