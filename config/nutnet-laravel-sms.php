@@ -32,8 +32,8 @@ return [
             'message_defaults' => [],
         ],
         'smsru' => [
-            'login' => env('SMSRU_LOGIN'),
-            'password' => env('SMSRU_PASSWORD'),
+            'auth_type' => 'api_id',
+            'api_id' => env('SMSCRU_API_Id'),
             'message_defaults' => [],
         ],
         'iqsmsru' => [

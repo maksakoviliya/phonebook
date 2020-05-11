@@ -6,8 +6,8 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
-use Nutnet\LaravelSms\SmsSender;
 
 class UserController extends Controller
 {
@@ -37,8 +37,7 @@ class UserController extends Controller
     {
         // $request - phone
 
-        // $code = rand(1000,9999);
-        $code = '1111';
+
 
         $now = Carbon::now();
         $expires = Carbon::now()->addMinutes(10);
@@ -47,6 +46,7 @@ class UserController extends Controller
         if ($user) {
             return response()->json(['error'=>'Уже зарегистрирован']);
         }
+
 
         $phone = DB::table('sms_code')->where('phone', $request->phone)->first();
         // return response()->json(['$now'=>$now->subMinutes(1), '$phone->created_at'=>Carbon::create($phone->created_at)]);
@@ -58,6 +58,23 @@ class UserController extends Controller
             }
         }
 
+        // $code = rand(1000,9999);
+        $code = '1111';
+
+        // $client = new \Zelenin\SmsRu\Api(new \Zelenin\SmsRu\Auth\ApiIdAuth(env('SMSCRU_API_Id')));
+        // $sms = new \Zelenin\SmsRu\Entity\Sms($request->phone, $code);
+
+
+        // try {
+        //     $send = $client->smsSend($sms);
+        // } catch (Exception $e) {
+        //     return response()->json(['error'=>'Не удалось отправить смс']);
+        // }
+
+        // if (!$send->ids) {
+        //     return response()->json(['error'=>'Не удалось отправить смс']);
+        // }
+
         DB::table('sms_code')->insert([
             'phone' => $request->phone,
             'code' => $code,
@@ -66,6 +83,21 @@ class UserController extends Controller
         ]);
 
         return response()->json(['success'=>'success']);
+    }
+
+    public function verifyCode(Request $request)
+    {
+        $phone = DB::table('sms_code')->where('phone', $request->phone)->first();
+        if (!$phone) {
+            return response()->json(['error'=>'Нет кода для этого пользователя']);
+        }
+        if ($now > Carbon::create($phone->expires_at)) {
+            return response()->json(['error'=>'Код уже не действует']);
+        }
+        if ($request->code != $phone->code) {
+            return response()->json(['error'=>'Неверный код']);
+        }
+        return response()->json(['success'=>'Верный код']);
     }
 
     public function register(Request $request)
@@ -101,12 +133,8 @@ class UserController extends Controller
         return redirect()->route('gettoken', compact('userId'));
     }
 
-    public function getlogin(Request $request)
+    public function getlogin(Request $request, \Nutnet\LaravelSms\SmsSender $smsSender)
     {
-        // $request - phone
-
-        // $code = rand(1000,9999);
-        $code = '1111';
 
         $now = Carbon::now();
         $expires = Carbon::now()->addMinutes(10);
@@ -125,6 +153,22 @@ class UserController extends Controller
                 DB::table('sms_code')->where('phone', $request->phone)->delete();
             }
         }
+        // $client = new \Zelenin\SmsRu\Api(new \Zelenin\SmsRu\Auth\ApiIdAuth(env('SMSCRU_API_Id')));
+       
+        $code = '1111';
+        // $code = rand(1000,9999);
+       
+        // $sms = new \Zelenin\SmsRu\Entity\Sms($request->phone, $code);
+
+        // try {
+        //     $send = $client->smsSend($sms);
+        // } catch (Exception $e) {
+        //     return response()->json(['error'=>'Не удалось отправить смс']);
+        // }
+
+        // if (!$send->ids) {
+        //     return response()->json(['error'=>'Не удалось отправить смс']);
+        // }
 
         DB::table('sms_code')->insert([
             'phone' => $user->phone,

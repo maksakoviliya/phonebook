@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::post('/sendsms', 'UserController@getCode'); // phone
+Route::post('/verifycode', 'UserController@verifyCode'); // phone, code
 Route::post('/register', 'UserController@register'); // phone,code,name
 Route::post('/getlogin', 'UserController@getlogin'); // phone
 Route::post('/login', 'UserController@login'); // phone,code
