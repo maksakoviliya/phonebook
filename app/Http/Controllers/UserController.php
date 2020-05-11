@@ -134,7 +134,7 @@ class UserController extends Controller
         return redirect()->route('gettoken', compact('userId'));
     }
 
-    public function getlogin(Request $request, \Nutnet\LaravelSms\SmsSender $smsSender)
+    public function getlogin(Request $request)
     {
 
         $now = Carbon::now();
