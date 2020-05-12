@@ -58,8 +58,8 @@ class UserController extends Controller
             }
         }
 
-        $code = rand(1000,9999);
-        // $code = '1111';
+        // $code = rand(1000,9999);
+        $code = '1111';
 
         $client = new \Zelenin\SmsRu\Api(new \Zelenin\SmsRu\Auth\ApiIdAuth(env('SMSCRU_API_Id')));
         $sms = new \Zelenin\SmsRu\Entity\Sms($request->phone, $code);
@@ -155,8 +155,8 @@ class UserController extends Controller
             }
         }
        
-        // $code = '1111';
-        $code = rand(1000,9999);
+        $code = '1111';
+        // $code = rand(1000,9999);
        
         $client = new \Zelenin\SmsRu\Api(new \Zelenin\SmsRu\Auth\ApiIdAuth(env('SMSCRU_API_Id')));
         $sms = new \Zelenin\SmsRu\Entity\Sms($request->phone, $code);
