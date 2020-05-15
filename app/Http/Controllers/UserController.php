@@ -58,22 +58,22 @@ class UserController extends Controller
             }
         }
 
-        // $code = rand(1000,9999);
-        $code = '1111';
+        // $code = '1111';
+        $code = rand(1000,9999);
 
-        // $client = new \Zelenin\SmsRu\Api(new \Zelenin\SmsRu\Auth\ApiIdAuth(env('SMSCRU_API_Id')));
-        // $sms = new \Zelenin\SmsRu\Entity\Sms($request->phone, $code);
+        $client = new \Zelenin\SmsRu\Api(new \Zelenin\SmsRu\Auth\ApiIdAuth(env('SMSCRU_API_Id')));
+        $sms = new \Zelenin\SmsRu\Entity\Sms($request->phone, $code);
 
 
-        // try {
-        //     $send = $client->smsSend($sms);
-        // } catch (Exception $e) {
-        //     return response()->json(['error'=>'Не удалось отправить смс']);
-        // }
+        try {
+            $send = $client->smsSend($sms);
+        } catch (Exception $e) {
+            return response()->json(['error'=>'Не удалось отправить смс']);
+        }
 
-        // if (!$send->ids) {
-        //     return response()->json(['error'=>'Не удалось отправить смс']);
-        // }
+        if (!$send->ids) {
+            return response()->json(['error'=>'Не удалось отправить смс']);
+        }
 
         DB::table('sms_code')->insert([
             'phone' => $request->phone,
@@ -140,6 +140,7 @@ class UserController extends Controller
         $now = Carbon::now();
         $expires = Carbon::now()->addMinutes(10);
 
+
         $user = User::where('phone', $request->phone)->first();
         if (!$user) {
             return response()->json(['error'=>'Пользователь не зарегистрирован']);
@@ -154,22 +155,30 @@ class UserController extends Controller
                 DB::table('sms_code')->where('phone', $request->phone)->delete();
             }
         }
-        // $client = new \Zelenin\SmsRu\Api(new \Zelenin\SmsRu\Auth\ApiIdAuth(env('SMSCRU_API_Id')));
-       
-        $code = '1111';
-        // $code = rand(1000,9999);
-       
-        // $sms = new \Zelenin\SmsRu\Entity\Sms($request->phone, $code);
 
-        // try {
-        //     $send = $client->smsSend($sms);
-        // } catch (Exception $e) {
-        //     return response()->json(['error'=>'Не удалось отправить смс']);
-        // }
+        /*Не тестовый пользователь*/
+        if($user->id != 2) { 
+            $code = rand(1000,9999);
+           
+            $client = new \Zelenin\SmsRu\Api(new \Zelenin\SmsRu\Auth\ApiIdAuth(env('SMSCRU_API_Id')));
+            $sms = new \Zelenin\SmsRu\Entity\Sms($request->phone, $code);
 
-        // if (!$send->ids) {
-        //     return response()->json(['error'=>'Не удалось отправить смс']);
-        // }
+            try {
+                $send = $client->smsSend($sms);
+            } catch (Exception $e) {
+                return response()->json(['error'=>'Не удалось отправить смс']);
+            }
+
+            if (!$send->ids) {
+                return response()->json(['error'=>'Не удалось отправить смс']);
+            }
+        } 
+        /*Тестовый пользователь*/
+         // phone +79991112233 //
+        else {
+            $code = '1111';
+        }
+        /*END Тестовый пользователь*/
 
         DB::table('sms_code')->insert([
             'phone' => $user->phone,
