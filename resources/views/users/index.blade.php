@@ -54,6 +54,9 @@
             <h3 class="mb-4">Пользователей пока нет</h3>
           @endif
         </div>
+        <div class="card-footer">
+          {{$users->links()}}
+        </div>
       </div>
     </div>
 
