@@ -11,6 +11,18 @@ use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
+    private function getPhone($rawPhone)
+    {
+        $phone ='';
+
+        if (substr($rawPhone, 0, 1) == '+') {
+            $phone = substr($rawPhone, 1);
+        } else {
+            $phone = substr($rawPhone, 0);
+        }
+
+        return $phone;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -37,24 +49,24 @@ class UserController extends Controller
     {
         // $request - phone
 
-
+        $phone = $this->getPhone($request->phone);
 
         $now = Carbon::now();
         $expires = Carbon::now()->addMinutes(10);
 
-        $user = User::where('phone', $request->phone)->first();
+        $user = User::where('phone', $phone)->first();
         if ($user) {
             return response()->json(['error'=>'Уже зарегистрирован']);
         }
 
 
-        $phone = DB::table('sms_code')->where('phone', $request->phone)->first();
+        $phone = DB::table('sms_code')->where('phone', $phone)->first();
         // return response()->json(['$now'=>$now->subMinutes(1), '$phone->created_at'=>Carbon::create($phone->created_at)]);
         if ($phone) {
             if ($now->subMinutes(1) < $phone->created_at) {
                 return response()->json(['error'=>'Не прошла минута']);
             } else {
-                DB::table('sms_code')->where('phone', $request->phone)->delete();
+                DB::table('sms_code')->where('phone', $phone)->delete();
             }
         }
 
@@ -62,7 +74,7 @@ class UserController extends Controller
         $code = rand(1000,9999);
 
         $client = new \Zelenin\SmsRu\Api(new \Zelenin\SmsRu\Auth\ApiIdAuth(env('SMSCRU_API_Id')));
-        $sms = new \Zelenin\SmsRu\Entity\Sms($request->phone, $code);
+        $sms = new \Zelenin\SmsRu\Entity\Sms($phone, $code);
 
 
         try {
@@ -76,7 +88,7 @@ class UserController extends Controller
         }
 
         DB::table('sms_code')->insert([
-            'phone' => $request->phone,
+            'phone' => $phone,
             'code' => $code,
             'expires_at' => $expires,
             'created_at' => $now,
@@ -88,7 +100,10 @@ class UserController extends Controller
     public function verifyCode(Request $request)
     {
         $now = Carbon::now();
-        $phone = DB::table('sms_code')->where('phone', $request->phone)->first();
+        $reqPhone = $this->getPhone($request->phone);
+
+        $phone = DB::table('sms_code')->where('phone', $reqPhone)->first();
+
         if (!$phone) {
             return response()->json(['error'=>'Нет кода для этого пользователя']);
         }
@@ -109,12 +124,14 @@ class UserController extends Controller
 
         $now = Carbon::now();
 
-        $user = User::where('phone', $request->phone)->first();
+        $phone = $this->getPhone($request->phone);
+
+        $user = User::where('phone', $phone)->first();
         if ($user) {
             return response()->json(['error'=>'Уже зарегистрирован']);
         }
 
-        $phone = DB::table('sms_code')->where('phone', $request->phone)->first();
+        $phone = DB::table('sms_code')->where('phone', $phone)->first();
         if (!$phone) {
             return response()->json(['error'=>'Нет кода для этого пользователя']);
         }
@@ -124,11 +141,11 @@ class UserController extends Controller
         if ($request->code != $phone->code) {
             return response()->json(['error'=>'Неверный код']);
         }
-        DB::table('sms_code')->where('phone', $request->phone)->delete();
+        DB::table('sms_code')->where('phone', $phone)->delete();
 
         $userId = User::create([
             'name'      => $request->name,
-            'phone'     => $request->phone,
+            'phone'     => $phone,
         ]);
 
         return redirect()->route('gettoken', compact('userId'));
@@ -139,20 +156,20 @@ class UserController extends Controller
 
         $now = Carbon::now();
         $expires = Carbon::now()->addMinutes(10);
+        $reqphone = $this->getPhone($request->phone);
 
-
-        $user = User::where('phone', $request->phone)->first();
+        $user = User::where('phone', $reqphone)->first();
         if (!$user) {
             return response()->json(['error'=>'Пользователь не зарегистрирован']);
         }
 
-        $phone = DB::table('sms_code')->where('phone', $request->phone)->first();
+        $phone = DB::table('sms_code')->where('phone', $reqphone)->first();
         // return response()->json(['$now'=>$now->subMinutes(1), '$phone->created_at'=>Carbon::create($phone->created_at)]);
         if ($phone) {
             if ($now->subMinutes(1) < $phone->created_at) {
                 return response()->json(['error'=>'Не прошла минута']);
             } else {
-                DB::table('sms_code')->where('phone', $request->phone)->delete();
+                DB::table('sms_code')->where('phone', $phone)->delete();
             }
         }
 
@@ -161,7 +178,7 @@ class UserController extends Controller
             $code = rand(1000,9999);
            
             $client = new \Zelenin\SmsRu\Api(new \Zelenin\SmsRu\Auth\ApiIdAuth(env('SMSCRU_API_Id')));
-            $sms = new \Zelenin\SmsRu\Entity\Sms($request->phone, $code);
+            $sms = new \Zelenin\SmsRu\Entity\Sms($phone, $code);
 
             try {
                 $send = $client->smsSend($sms);
@@ -196,13 +213,14 @@ class UserController extends Controller
         // $request - code
 
         $now = Carbon::now();
+        $reqphone = $this->getPhone($request->phone);
 
-        $user = User::where('phone', $request->phone)->first();
+        $user = User::where('phone', $reqphone)->first();
         if (!$user) {
             return response()->json(['error'=>'Пользователь не зарегистрирован']);
         }
 
-        $phone = DB::table('sms_code')->where('phone', $user->phone)->first();
+        $phone = DB::table('sms_code')->where('phone', $reqphone)->first();
         if (!$phone) {
             return response()->json(['error'=>'Нет кода для этого пользователя']);
         }
