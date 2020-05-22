@@ -165,14 +165,13 @@ class UserController extends Controller
         if (!$user) {
             return response()->json(['error'=>'Пользователь не зарегистрирован']);
         }
-
         $phone = DB::table('sms_code')->where('phone', $reqphone)->first();
         // return response()->json(['$now'=>$now->subMinutes(1), '$phone->created_at'=>Carbon::create($phone->created_at)]);
         if ($phone) {
             if ($now->subMinutes(1) < $phone->created_at) {
                 return response()->json(['error'=>'Не прошла минута']);
             } else {
-                DB::table('sms_code')->where('phone', $phone)->delete();
+                DB::table('sms_code')->where('phone', $reqphone)->delete();
             }
         }
 
