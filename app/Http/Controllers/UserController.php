@@ -49,19 +49,21 @@ class UserController extends Controller
     {
         // $request - phone
 
-        $phone = $this->getPhone($request->phone);
+        $reqPhone = $this->getPhone($request->phone);
+
 
         $now = Carbon::now();
         $expires = Carbon::now()->addMinutes(10);
 
-        $user = User::where('phone', $phone)->first();
+        $user = User::where('phone', $reqPhone)->first();
         if ($user) {
             return response()->json(['error'=>'Уже зарегистрирован']);
         }
 
 
-        $phone = DB::table('sms_code')->where('phone', $phone)->first();
+        $phone = DB::table('sms_code')->where('phone', $reqPhone)->first();
         // return response()->json(['$now'=>$now->subMinutes(1), '$phone->created_at'=>Carbon::create($phone->created_at)]);
+        
         if ($phone) {
             if ($now->subMinutes(1) < $phone->created_at) {
                 return response()->json(['error'=>'Не прошла минута']);
@@ -87,8 +89,9 @@ class UserController extends Controller
             return response()->json(['error'=>'Не удалось отправить смс']);
         }
 
+
         DB::table('sms_code')->insert([
-            'phone' => $phone,
+            'phone' => $reqPhone,
             'code' => $code,
             'expires_at' => $expires,
             'created_at' => $now,
@@ -198,7 +201,7 @@ class UserController extends Controller
         /*END Тестовый пользователь*/
 
         DB::table('sms_code')->insert([
-            'phone' => $user->phone,
+            'phone' => $reqphone,
             'code' => $code,
             'expires_at' => $expires,
             'created_at' => $now,
