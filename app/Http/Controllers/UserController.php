@@ -68,7 +68,7 @@ class UserController extends Controller
             if ($now->subMinutes(1) < $phone->created_at) {
                 return response()->json(['error'=>'Не прошла минута']);
             } else {
-                DB::table('sms_code')->where('phone', $phone)->delete();
+                DB::table('sms_code')->where('phone', $reqPhone)->delete();
             }
         }
 
