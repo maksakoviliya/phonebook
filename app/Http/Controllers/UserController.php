@@ -51,6 +51,8 @@ class UserController extends Controller
 
         $reqPhone = $this->getPhone($request->phone);
 
+        Log::info('$reqPhone');
+        Log::info($reqPhone);
 
         $now = Carbon::now();
         $expires = Carbon::now()->addMinutes(10);
