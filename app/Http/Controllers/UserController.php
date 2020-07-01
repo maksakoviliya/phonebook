@@ -126,14 +126,17 @@ class UserController extends Controller
 
         $now = Carbon::now();
 
-        $phone = $this->getPhone($request->phone);
+        // Log::info('$request->phone');
+        // Log::info($request->phone);
 
-        $user = User::where('phone', $phone)->first();
+        $reqPhone = $this->getPhone($request->phone);
+
+        $user = User::where('phone', $reqPhone)->first();
         if ($user) {
             return response()->json(['error'=>'Уже зарегистрирован']);
         }
 
-        $phone = DB::table('sms_code')->where('phone', $phone)->first();
+        $phone = DB::table('sms_code')->where('phone', $reqPhone)->first();
         if (!$phone) {
             return response()->json(['error'=>'Нет кода для этого пользователя']);
         }
@@ -143,11 +146,11 @@ class UserController extends Controller
         if ($request->code != $phone->code) {
             return response()->json(['error'=>'Неверный код']);
         }
-        DB::table('sms_code')->where('phone', $phone)->delete();
+        DB::table('sms_code')->where('phone', $reqPhone)->delete();
 
         $userId = User::create([
             'name'      => $request->name,
-            'phone'     => $phone,
+            'phone'     => $reqPhone,
         ]);
 
         return redirect()->route('gettoken', compact('userId'));
