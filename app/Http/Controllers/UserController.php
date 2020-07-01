@@ -51,8 +51,6 @@ class UserController extends Controller
 
         $reqPhone = $this->getPhone($request->phone);
 
-        Log::info('$reqPhone');
-        Log::info($reqPhone);
 
         $now = Carbon::now();
         $expires = Carbon::now()->addMinutes(10);
@@ -80,6 +78,10 @@ class UserController extends Controller
         $client = new \Zelenin\SmsRu\Api(new \Zelenin\SmsRu\Auth\ApiIdAuth(env('SMSCRU_API_Id')));
         $sms = new \Zelenin\SmsRu\Entity\Sms($phone, $code);
 
+        Log::info('$client');
+        Log::info($client);
+        Log::info('$sms');
+        Log::info($sms);
 
         try {
             $send = $client->smsSend($sms);
