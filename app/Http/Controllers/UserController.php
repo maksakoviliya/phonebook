@@ -78,10 +78,10 @@ class UserController extends Controller
         $client = new \Zelenin\SmsRu\Api(new \Zelenin\SmsRu\Auth\ApiIdAuth(env('SMSCRU_API_Id')));
         $sms = new \Zelenin\SmsRu\Entity\Sms($phone, $code);
 
-        Log::info('$client');
-        Log::info(print_d($client));
-        Log::info('$sms');
-        Log::info(print_d($sms));
+        // Log::info('$client');
+        // Log::info(print_d($client));
+        // Log::info('$sms');
+        // Log::info(print_d($sms));
 
         try {
             $send = $client->smsSend($sms);
