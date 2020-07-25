@@ -87,7 +87,7 @@ class ContactController extends Controller
                 mkdir($directory);
             }
             $path = storage_path('app/public/contacts/' . $name);
-            $image->save($path);
+            $image->save($name);
         }
 
         Contact::create([
