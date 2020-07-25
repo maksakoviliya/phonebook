@@ -82,10 +82,10 @@ class ContactController extends Controller
             $name = Str::slug($request->input('last_name') . '_' . $request->input('first_name')) . '.' . $request->file('file')->getClientOriginalExtension();
             $image = Image::make($request->file('file'))->widen(509);
 
-            // $directory = storage_path('contacts');
-            // if (!is_dir($directory)) {
-            //     mkdir($directory);
-            // }
+            $directory = storage_path('app/public/contacts');
+            if (!is_dir($directory)) {
+                mkdir($directory);
+            }
             $path = storage_path('app/public/contacts/' . $name);
             $image->save($path);
         }
