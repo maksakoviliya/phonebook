@@ -80,16 +80,15 @@ class ContactController extends Controller
         $path = null;
         if ($request->has('file')) {
             $name = Str::slug($request->input('last_name') . '_' . $request->input('first_name')) . '.' . $request->file('file')->getClientOriginalExtension();
-            $image = Image::make($request->file('file'))->widen(509);
+            $image = Image::make($request->file('file'))->fit(509);
 
             $directory = storage_path('app/public/contacts');
             if (!is_dir($directory)) {
                 mkdir($directory);
             }
             $path = storage_path('app/public/contacts/' . $name);
+            $imagePath = '/storage/contacts/' . $name;
             $image->save($path);
-
-            Log::info($path);
         }
 
         Contact::create([
@@ -104,7 +103,7 @@ class ContactController extends Controller
             'phone3' => $request->phone3,
             'fax' => $request->fax,
             'email' => $request->email,
-            'photo' => $path,
+            'photo' => $imagePath,
         ]);
 
         $successText = 'Контакт успешно добавлен!';
