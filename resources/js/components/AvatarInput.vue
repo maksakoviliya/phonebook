@@ -7,6 +7,7 @@
 
 <script>
 export default {
+  name: "avatar-input",
   data() {
     return {
       file: null,
