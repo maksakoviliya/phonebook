@@ -62,6 +62,8 @@ class ContactController extends Controller
      */
     public function store(Request $request)
     {
+        Log::info('$request');
+        Log::info($request->all());
         $request->validate([
             'phonebook_id' => 'required|exists:phone_books,id',
             'first_name' => 'required|max:15',
@@ -77,10 +79,12 @@ class ContactController extends Controller
             'email' => 'max:25'
         ]);
 
-        $path = null;
-        if ($request->has('file')) {
+        $imagePath = null;
+        if ($request->has('file') && $request->file('file')) {
             $name = Str::slug($request->input('last_name') . '_' . $request->input('first_name')) . '.' . $request->file('file')->getClientOriginalExtension();
-            $image = Image::make($request->file('file'))->fit(509);
+            $image = Image::make($request->file('file'))->resize(509, null, function ($constraint) {
+                $constraint->aspectRatio();
+            });
 
             $directory = storage_path('app/public/contacts');
             if (!is_dir($directory)) {
@@ -127,9 +131,10 @@ class ContactController extends Controller
      * @param  \App\Contact  $contact
      * @return \Illuminate\Http\Response
      */
-    public function edit(Contact $contact)
+    public function edit($phonebookId, $id)
     {
-        //
+        $contact = Contact::find($id);
+        return view('contacts.edit', compact('contact'));
     }
 
     /**
@@ -139,9 +144,60 @@ class ContactController extends Controller
      * @param  \App\Contact  $contact
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Contact $contact)
+    public function update($phonebookId, $id, Request $request)
     {
-        //
+        Log::info('$request');
+        Log::info($request->all());
+        $request->validate([
+            'phonebook_id' => 'required|exists:phone_books,id',
+            'first_name' => 'required|max:15',
+            'last_name' => 'required|max:15',
+            'patronymic' => 'max:15',
+            'position' => 'max:255',
+            'birthday' => 'max:15',
+            'phone1' => 'max:15',
+            'phone2' => 'max:15',
+            'phone3' => 'max:15',
+            'file' => 'nullable|image|mimes:jpeg,png,jpg,gif',
+            'fax' => 'max:15',
+            'email' => 'max:25'
+        ]);
+
+        $contact = Contact::find($id);
+
+        $imagePath = null;
+        if ($request->has('file') && $request->file('file')) {
+            $name = Str::slug($request->input('last_name') . '_' . $request->input('first_name')) . '.' . $request->file('file')->getClientOriginalExtension();
+            $image = Image::make($request->file('file'))->resize(509, null, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+
+            $directory = storage_path('app/public/contacts');
+            if (!is_dir($directory)) {
+                mkdir($directory);
+            }
+            $path = storage_path('app/public/contacts/' . $name);
+            $imagePath = '/storage/contacts/' . $name;
+            $image->save($path);
+            $contact->photo = $imagePath;
+        }
+
+        $contact->update([
+            'phonebook_id' => $request->phonebook_id,
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'patronymic' => $request->patronymic,
+            'position' => $request->position,
+            'birthday' => $request->birthday,
+            'phone1' => $request->phone1,
+            'phone2' => $request->phone2,
+            'phone3' => $request->phone3,
+            'fax' => $request->fax,
+            'email' => $request->email,
+        ]);
+
+        $successText = 'Контакт успешно изменен!';
+        return redirect()->route('phonebooks.contacts', $request->phonebook_id)->with('success', $successText);
     }
 
     /**
@@ -150,8 +206,11 @@ class ContactController extends Controller
      * @param  \App\Contact  $contact
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Contact $contact)
+    public function destroy($phonebookId, $id)
     {
-        //
+        Contact::findOrFail($id)->delete();
+
+        $successText = "Контакт удален!";
+        return redirect()->route('phonebooks.contacts', $phonebookId)->with('success', $successText);
     }
 }

@@ -8,6 +8,9 @@
 <script>
 export default {
   name: "avatar-input",
+  props: {
+    photo: String,
+  },
   data() {
     return {
       file: null,
@@ -20,6 +23,11 @@ export default {
       this.file = file.name;
       this.filePath = URL.createObjectURL(file);
     },
+  },
+  mounted() {
+    if (this.photo && this.photo !== "") {
+      this.filePath = this.photo;
+    }
   },
 };
 </script>
