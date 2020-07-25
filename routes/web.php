@@ -28,7 +28,8 @@ Route::middleware(['isadmin'])->group(function () {
   })->name('dashboard');
   Route::resource('/phonebooks', 'PhoneBookController')->names('phonebooks');
   Route::get('/phonebooks/{phonebookId}/contacts', 'PhoneBookController@contacts')->name('phonebooks.contacts');
-  Route::resource('/contacts', 'ContactController')->names('contacts');
+  Route::get('/phonebooks/{phonebookId}/contacts/create', 'ContactController@create')->name('contacts.create');
+  Route::post('/phonebooks/{phonebookId}/contacts/store', 'ContactController@store')->name('contacts.store');
   Route::resource('/customers', 'CustomerController')->names('customers');
   Route::resource('/users', 'UserController')->names('users');
 

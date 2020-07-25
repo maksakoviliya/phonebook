@@ -21803,18 +21803,17 @@ return src;
  */
 
 (function() {
-  isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
+  isWindows = navigator.platform.indexOf("Win") > -1 ? true : false;
 
   if (isWindows) {
     // if we are on windows OS we activate the perfectScrollbar function
-    $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar();
+    // $(".sidebar .sidebar-wrapper, .main-panel").perfectScrollbar();
 
-    $('html').addClass('perfect-scrollbar-on');
+    $("html").addClass("perfect-scrollbar-on");
   } else {
-    $('html').addClass('perfect-scrollbar-off');
+    $("html").addClass("perfect-scrollbar-off");
   }
 })();
-
 
 var breakCards = true;
 
@@ -21837,10 +21836,9 @@ var seq2 = 0,
   durations2 = 500;
 
 $(document).ready(function() {
+  $("body").bootstrapMaterialDesign();
 
-  $('body').bootstrapMaterialDesign();
-
-  $sidebar = $('.sidebar');
+  $sidebar = $(".sidebar");
 
   md.initSidebarsCheck();
 
@@ -21857,69 +21855,74 @@ $(document).ready(function() {
   //  Activate the tooltips
   $('[rel="tooltip"]').tooltip();
 
-  $('.form-control').on("focus", function() {
-    $(this).parent('.input-group').addClass("input-group-focus");
-  }).on("blur", function() {
-    $(this).parent(".input-group").removeClass("input-group-focus");
-  });
+  $(".form-control")
+    .on("focus", function() {
+      $(this)
+        .parent(".input-group")
+        .addClass("input-group-focus");
+    })
+    .on("blur", function() {
+      $(this)
+        .parent(".input-group")
+        .removeClass("input-group-focus");
+    });
 
   // remove class has-error for checkbox validation
-  $('input[type="checkbox"][required="true"], input[type="radio"][required="true"]').on('click', function() {
-    if ($(this).hasClass('error')) {
-      $(this).closest('div').removeClass('has-error');
+  $(
+    'input[type="checkbox"][required="true"], input[type="radio"][required="true"]'
+  ).on("click", function() {
+    if ($(this).hasClass("error")) {
+      $(this)
+        .closest("div")
+        .removeClass("has-error");
     }
   });
-
 });
 
-$(document).on('click', '.navbar-toggler', function() {
+$(document).on("click", ".navbar-toggler", function() {
   $toggle = $(this);
 
   if (mobile_menu_visible == 1) {
-    $('html').removeClass('nav-open');
+    $("html").removeClass("nav-open");
 
-    $('.close-layer').remove();
+    $(".close-layer").remove();
     setTimeout(function() {
-      $toggle.removeClass('toggled');
+      $toggle.removeClass("toggled");
     }, 400);
 
     mobile_menu_visible = 0;
   } else {
     setTimeout(function() {
-      $toggle.addClass('toggled');
+      $toggle.addClass("toggled");
     }, 430);
 
     var $layer = $('<div class="close-layer"></div>');
 
-    if ($('body').find('.main-panel').length != 0) {
+    if ($("body").find(".main-panel").length != 0) {
       $layer.appendTo(".main-panel");
-
-    } else if (($('body').hasClass('off-canvas-sidebar'))) {
+    } else if ($("body").hasClass("off-canvas-sidebar")) {
       $layer.appendTo(".wrapper-full-page");
     }
 
     setTimeout(function() {
-      $layer.addClass('visible');
+      $layer.addClass("visible");
     }, 100);
 
     $layer.click(function() {
-      $('html').removeClass('nav-open');
+      $("html").removeClass("nav-open");
       mobile_menu_visible = 0;
 
-      $layer.removeClass('visible');
+      $layer.removeClass("visible");
 
       setTimeout(function() {
         $layer.remove();
-        $toggle.removeClass('toggled');
-
+        $toggle.removeClass("toggled");
       }, 400);
     });
 
-    $('html').addClass('nav-open');
+    $("html").addClass("nav-open");
     mobile_menu_visible = 1;
-
   }
-
 });
 
 // activate collapse right menu when the windows is resized
@@ -21934,8 +21937,6 @@ $(window).resize(function() {
   }, 500);
 });
 
-
-
 md = {
   misc: {
     navbar_menu_visible: 0,
@@ -21944,11 +21945,14 @@ md = {
   },
 
   checkSidebarImage: function() {
-    $sidebar = $('.sidebar');
-    image_src = $sidebar.data('image');
+    $sidebar = $(".sidebar");
+    image_src = $sidebar.data("image");
 
     if (image_src !== undefined) {
-      sidebar_container = '<div class="sidebar-background" style="background-image: url(' + image_src + ') "/>';
+      sidebar_container =
+        '<div class="sidebar-background" style="background-image: url(' +
+        image_src +
+        ') "/>';
       $sidebar.append(sidebar_container);
     }
   },
@@ -21962,15 +21966,16 @@ md = {
   },
 
   initDashboardPageCharts: function() {
-
-    if ($('#dailySalesChart').length != 0 || $('#completedTasksChart').length != 0 || $('#websiteViewsChart').length != 0) {
+    if (
+      $("#dailySalesChart").length != 0 ||
+      $("#completedTasksChart").length != 0 ||
+      $("#websiteViewsChart").length != 0
+    ) {
       /* ----------==========     Daily Sales Chart initialization    ==========---------- */
 
       dataDailySalesChart = {
-        labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
-        series: [
-          [12, 17, 7, 17, 23, 18, 38]
-        ]
+        labels: ["M", "T", "W", "T", "F", "S", "S"],
+        series: [[12, 17, 7, 17, 23, 18, 38]]
       };
 
       optionsDailySalesChart = {
@@ -21984,21 +21989,22 @@ md = {
           right: 0,
           bottom: 0,
           left: 0
-        },
-      }
+        }
+      };
 
-      var dailySalesChart = new Chartist.Line('#dailySalesChart', dataDailySalesChart, optionsDailySalesChart);
+      var dailySalesChart = new Chartist.Line(
+        "#dailySalesChart",
+        dataDailySalesChart,
+        optionsDailySalesChart
+      );
 
       md.startAnimationForLineChart(dailySalesChart);
-
 
       /* ----------==========     Completed Tasks Chart initialization    ==========---------- */
 
       dataCompletedTasksChart = {
-        labels: ['12p', '3p', '6p', '9p', '12p', '3a', '6a', '9a'],
-        series: [
-          [230, 750, 450, 300, 280, 240, 200, 190]
-        ]
+        labels: ["12p", "3p", "6p", "9p", "12p", "3a", "6a", "9a"],
+        series: [[230, 750, 450, 300, 280, 240, 200, 190]]
       };
 
       optionsCompletedTasksChart = {
@@ -22013,22 +22019,22 @@ md = {
           bottom: 0,
           left: 0
         }
-      }
+      };
 
-      var completedTasksChart = new Chartist.Line('#completedTasksChart', dataCompletedTasksChart, optionsCompletedTasksChart);
+      var completedTasksChart = new Chartist.Line(
+        "#completedTasksChart",
+        dataCompletedTasksChart,
+        optionsCompletedTasksChart
+      );
 
       // start animation for the Completed Tasks Chart - Line Chart
       md.startAnimationForLineChart(completedTasksChart);
 
-
       /* ----------==========     Emails Subscription Chart initialization    ==========---------- */
 
       var dataWebsiteViewsChart = {
-        labels: ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'],
-        series: [
-          [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895]
-
-        ]
+        labels: ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"],
+        series: [[542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895]]
       };
       var optionsWebsiteViewsChart = {
         axisX: {
@@ -22044,16 +22050,24 @@ md = {
         }
       };
       var responsiveOptions = [
-        ['screen and (max-width: 640px)', {
-          seriesBarDistance: 5,
-          axisX: {
-            labelInterpolationFnc: function(value) {
-              return value[0];
+        [
+          "screen and (max-width: 640px)",
+          {
+            seriesBarDistance: 5,
+            axisX: {
+              labelInterpolationFnc: function(value) {
+                return value[0];
+              }
             }
           }
-        }]
+        ]
       ];
-      var websiteViewsChart = Chartist.Bar('#websiteViewsChart', dataWebsiteViewsChart, optionsWebsiteViewsChart, responsiveOptions);
+      var websiteViewsChart = Chartist.Bar(
+        "#websiteViewsChart",
+        dataWebsiteViewsChart,
+        optionsWebsiteViewsChart,
+        responsiveOptions
+      );
 
       //start animation for the Emails Subscription Chart
       md.startAnimationForBarChart(websiteViewsChart);
@@ -22061,55 +22075,63 @@ md = {
   },
 
   showNotification: function(from, align) {
-    type = ['', 'info', 'danger', 'success', 'warning', 'primary'];
+    type = ["", "info", "danger", "success", "warning", "primary"];
 
-    color = Math.floor((Math.random() * 5) + 1);
+    color = Math.floor(Math.random() * 5 + 1);
 
-    $.notify({
-      icon: "add_alert",
-      message: "Welcome to <b>Material Dashboard</b> - a beautiful freebie for every web developer."
-
-    }, {
-      type: type[color],
-      timer: 3000,
-      placement: {
-        from: from,
-        align: align
+    $.notify(
+      {
+        icon: "add_alert",
+        message:
+          "Welcome to <b>Material Dashboard</b> - a beautiful freebie for every web developer."
+      },
+      {
+        type: type[color],
+        timer: 3000,
+        placement: {
+          from: from,
+          align: align
+        }
       }
-    });
+    );
   },
 
   checkScrollForTransparentNavbar: debounce(function() {
     if ($(document).scrollTop() > 260) {
       if (transparent) {
         transparent = false;
-        $('.navbar-color-on-scroll').removeClass('navbar-transparent');
+        $(".navbar-color-on-scroll").removeClass("navbar-transparent");
       }
     } else {
       if (!transparent) {
         transparent = true;
-        $('.navbar-color-on-scroll').addClass('navbar-transparent');
+        $(".navbar-color-on-scroll").addClass("navbar-transparent");
       }
     }
   }, 17),
 
   initRightMenu: debounce(function() {
-
-    $sidebar_wrapper = $('.sidebar-wrapper');
+    $sidebar_wrapper = $(".sidebar-wrapper");
 
     if (!mobile_menu_initialized) {
-      console.log('intra');
-      $navbar = $('nav').find('.navbar-collapse').children('.navbar-nav');
+      console.log("intra");
+      $navbar = $("nav")
+        .find(".navbar-collapse")
+        .children(".navbar-nav");
 
-      mobile_menu_content = '';
+      mobile_menu_content = "";
 
       nav_content = $navbar.html();
 
-      nav_content = '<ul class="nav navbar-nav nav-mobile-menu">' + nav_content + '</ul>';
+      nav_content =
+        '<ul class="nav navbar-nav nav-mobile-menu">' + nav_content + "</ul>";
 
-      navbar_form = $('nav').find('.navbar-form').length != 0 ? $('nav').find('.navbar-form')[0].outerHTML : null;
+      navbar_form =
+        $("nav").find(".navbar-form").length != 0
+          ? $("nav").find(".navbar-form")[0].outerHTML
+          : null;
 
-      $sidebar_nav = $sidebar_wrapper.find(' > .nav');
+      $sidebar_nav = $sidebar_wrapper.find(" > .nav");
 
       // insert the navbar form before the sidebar list
       $nav_content = $(nav_content);
@@ -22117,20 +22139,21 @@ md = {
       $nav_content.insertBefore($sidebar_nav);
       $navbar_form.insertBefore($nav_content);
 
-      $(".sidebar-wrapper .dropdown .dropdown-menu > li > a").click(function(event) {
+      $(".sidebar-wrapper .dropdown .dropdown-menu > li > a").click(function(
+        event
+      ) {
         event.stopPropagation();
-
       });
 
       // simulate resize so all the charts/maps will be redrawn
-      window.dispatchEvent(new Event('resize'));
+      window.dispatchEvent(new Event("resize"));
 
       mobile_menu_initialized = true;
     } else {
       if ($(window).width() > 991) {
         // reset all the additions that we made for the sidebar wrapper only if the screen is bigger than 991px
-        $sidebar_wrapper.find('.navbar-form').remove();
-        $sidebar_wrapper.find('.nav-mobile-menu').remove();
+        $sidebar_wrapper.find(".navbar-form").remove();
+        $sidebar_wrapper.find(".nav-mobile-menu").remove();
 
         mobile_menu_initialized = false;
       }
@@ -22138,18 +22161,25 @@ md = {
   }, 200),
 
   startAnimationForLineChart: function(chart) {
-    chart.on('draw', function(data) {
-      if ((data.type === 'line' || data.type === 'area') && window.matchMedia("(min-width: 900px)").matches) {
+    chart.on("draw", function(data) {
+      if (
+        (data.type === "line" || data.type === "area") &&
+        window.matchMedia("(min-width: 900px)").matches
+      ) {
         data.element.animate({
           d: {
             begin: 600,
             dur: 700,
-            from: data.path.clone().scale(1, 0).translate(0, data.chartRect.height()).stringify(),
+            from: data.path
+              .clone()
+              .scale(1, 0)
+              .translate(0, data.chartRect.height())
+              .stringify(),
             to: data.path.clone().stringify(),
             easing: Chartist.Svg.Easing.easeOutQuint
           }
         });
-      } else if (data.type === 'point') {
+      } else if (data.type === "point") {
         seq++;
         data.element.animate({
           opacity: {
@@ -22157,19 +22187,20 @@ md = {
             dur: durations,
             from: 0,
             to: 1,
-            easing: 'ease'
+            easing: "ease"
           }
         });
       }
-
     });
 
     seq = 0;
-
   },
   startAnimationForBarChart: function(chart) {
-    chart.on('draw', function(data) {
-      if (data.type === 'bar' && window.matchMedia("(min-width: 900px)").matches) {
+    chart.on("draw", function(data) {
+      if (
+        data.type === "bar" &&
+        window.matchMedia("(min-width: 900px)").matches
+      ) {
         seq2++;
         data.element.animate({
           opacity: {
@@ -22177,17 +22208,15 @@ md = {
             dur: durations2,
             from: 0,
             to: 1,
-            easing: 'ease'
+            easing: "ease"
           }
         });
       }
-
     });
 
     seq2 = 0;
-
   }
-}
+};
 
 // Returns a function, that, as long as it continues to be invoked, will not
 // be triggered. The function will be called after it stops being called for
@@ -22206,316 +22235,361 @@ function debounce(func, wait, immediate) {
     }, wait);
     if (immediate && !timeout) func.apply(context, args);
   };
-};
+}
+
 $(document).ready(function() {
-  console.log('Jquery is ok');
-      $().ready(function() {
-        $sidebar = $('.sidebar');
+  console.log("Jquery is ok");
+  $().ready(function() {
+    $sidebar = $(".sidebar");
 
-        $sidebar_img_container = $sidebar.find('.sidebar-background');
+    $sidebar_img_container = $sidebar.find(".sidebar-background");
 
-        $full_page = $('.full-page');
+    $full_page = $(".full-page");
 
-        $sidebar_responsive = $('body > .navbar-collapse');
+    $sidebar_responsive = $("body > .navbar-collapse");
 
-        window_width = $(window).width();
+    window_width = $(window).width();
 
-        $('.fixed-plugin a').click(function(event) {
-          // Alex if we click on switch, stop propagation of the event, so the dropdown will not be hide, otherwise we set the  section active
-          if ($(this).hasClass('switch-trigger')) {
-            if (event.stopPropagation) {
-              event.stopPropagation();
-            } else if (window.event) {
-              window.event.cancelBubble = true;
-            }
-          }
-        });
-
-        $('.fixed-plugin .active-color span').click(function() {
-          $full_page_background = $('.full-page-background');
-
-          $(this).siblings().removeClass('active');
-          $(this).addClass('active');
-
-          var new_color = $(this).data('color');
-
-          if ($sidebar.length != 0) {
-            $sidebar.attr('data-color', new_color);
-          }
-
-          if ($full_page.length != 0) {
-            $full_page.attr('filter-color', new_color);
-          }
-
-          if ($sidebar_responsive.length != 0) {
-            $sidebar_responsive.attr('data-color', new_color);
-          }
-        });
-
-        $('.fixed-plugin .background-color .badge').click(function() {
-          $(this).siblings().removeClass('active');
-          $(this).addClass('active');
-
-          var new_color = $(this).data('background-color');
-
-          if ($sidebar.length != 0) {
-            $sidebar.attr('data-background-color', new_color);
-          }
-        });
-
-        $('.fixed-plugin .img-holder').click(function() {
-          $full_page_background = $('.full-page-background');
-
-          $(this).parent('li').siblings().removeClass('active');
-          $(this).parent('li').addClass('active');
-
-
-          var new_image = $(this).find("img").attr('src');
-
-          if ($sidebar_img_container.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
-            $sidebar_img_container.fadeOut('fast', function() {
-              $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
-              $sidebar_img_container.fadeIn('fast');
-            });
-          }
-
-          if ($full_page_background.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
-            var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
-
-            $full_page_background.fadeOut('fast', function() {
-              $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
-              $full_page_background.fadeIn('fast');
-            });
-          }
-
-          if ($('.switch-sidebar-image input:checked').length == 0) {
-            var new_image = $('.fixed-plugin li.active .img-holder').find("img").attr('src');
-            var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
-
-            $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
-            $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
-          }
-
-          if ($sidebar_responsive.length != 0) {
-            $sidebar_responsive.css('background-image', 'url("' + new_image + '")');
-          }
-        });
-
-        $('.switch-sidebar-image input').change(function() {
-          $full_page_background = $('.full-page-background');
-
-          $input = $(this);
-
-          if ($input.is(':checked')) {
-            if ($sidebar_img_container.length != 0) {
-              $sidebar_img_container.fadeIn('fast');
-              $sidebar.attr('data-image', '#');
-            }
-
-            if ($full_page_background.length != 0) {
-              $full_page_background.fadeIn('fast');
-              $full_page.attr('data-image', '#');
-            }
-
-            background_image = true;
-          } else {
-            if ($sidebar_img_container.length != 0) {
-              $sidebar.removeAttr('data-image');
-              $sidebar_img_container.fadeOut('fast');
-            }
-
-            if ($full_page_background.length != 0) {
-              $full_page.removeAttr('data-image', '#');
-              $full_page_background.fadeOut('fast');
-            }
-
-            background_image = false;
-          }
-        });
-
-        $('.switch-sidebar-mini input').change(function() {
-          $body = $('body');
-
-          $input = $(this);
-
-          if (md.misc.sidebar_mini_active == true) {
-            $('body').removeClass('sidebar-mini');
-            md.misc.sidebar_mini_active = false;
-
-            $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar();
-
-          } else {
-
-            $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar('destroy');
-
-            setTimeout(function() {
-              $('body').addClass('sidebar-mini');
-
-              md.misc.sidebar_mini_active = true;
-            }, 300);
-          }
-
-          // // we simulate the window Resize so the charts will get updated in realtime.
-          // var simulateWindowResize = setInterval(function() {
-          //   window.dispatchEvent(new Event('resize'));
-          // }, 180);
-
-          // // we stop the simulation of Window Resize after the animations are completed
-          // setTimeout(function() {
-          //   clearInterval(simulateWindowResize);
-          // }, 1000);
-
-        });
-      });
+    $(".fixed-plugin a").click(function(event) {
+      // Alex if we click on switch, stop propagation of the event, so the dropdown will not be hide, otherwise we set the  section active
+      if ($(this).hasClass("switch-trigger")) {
+        if (event.stopPropagation) {
+          event.stopPropagation();
+        } else if (window.event) {
+          window.event.cancelBubble = true;
+        }
+      }
     });
 
+    $(".fixed-plugin .active-color span").click(function() {
+      $full_page_background = $(".full-page-background");
 
+      $(this)
+        .siblings()
+        .removeClass("active");
+      $(this).addClass("active");
+
+      var new_color = $(this).data("color");
+
+      if ($sidebar.length != 0) {
+        $sidebar.attr("data-color", new_color);
+      }
+
+      if ($full_page.length != 0) {
+        $full_page.attr("filter-color", new_color);
+      }
+
+      if ($sidebar_responsive.length != 0) {
+        $sidebar_responsive.attr("data-color", new_color);
+      }
+    });
+
+    $(".fixed-plugin .background-color .badge").click(function() {
+      $(this)
+        .siblings()
+        .removeClass("active");
+      $(this).addClass("active");
+
+      var new_color = $(this).data("background-color");
+
+      if ($sidebar.length != 0) {
+        $sidebar.attr("data-background-color", new_color);
+      }
+    });
+
+    $(".fixed-plugin .img-holder").click(function() {
+      $full_page_background = $(".full-page-background");
+
+      $(this)
+        .parent("li")
+        .siblings()
+        .removeClass("active");
+      $(this)
+        .parent("li")
+        .addClass("active");
+
+      var new_image = $(this)
+        .find("img")
+        .attr("src");
+
+      if (
+        $sidebar_img_container.length != 0 &&
+        $(".switch-sidebar-image input:checked").length != 0
+      ) {
+        $sidebar_img_container.fadeOut("fast", function() {
+          $sidebar_img_container.css(
+            "background-image",
+            'url("' + new_image + '")'
+          );
+          $sidebar_img_container.fadeIn("fast");
+        });
+      }
+
+      if (
+        $full_page_background.length != 0 &&
+        $(".switch-sidebar-image input:checked").length != 0
+      ) {
+        var new_image_full_page = $(".fixed-plugin li.active .img-holder")
+          .find("img")
+          .data("src");
+
+        $full_page_background.fadeOut("fast", function() {
+          $full_page_background.css(
+            "background-image",
+            'url("' + new_image_full_page + '")'
+          );
+          $full_page_background.fadeIn("fast");
+        });
+      }
+
+      if ($(".switch-sidebar-image input:checked").length == 0) {
+        var new_image = $(".fixed-plugin li.active .img-holder")
+          .find("img")
+          .attr("src");
+        var new_image_full_page = $(".fixed-plugin li.active .img-holder")
+          .find("img")
+          .data("src");
+
+        $sidebar_img_container.css(
+          "background-image",
+          'url("' + new_image + '")'
+        );
+        $full_page_background.css(
+          "background-image",
+          'url("' + new_image_full_page + '")'
+        );
+      }
+
+      if ($sidebar_responsive.length != 0) {
+        $sidebar_responsive.css("background-image", 'url("' + new_image + '")');
+      }
+    });
+
+    $(".switch-sidebar-image input").change(function() {
+      $full_page_background = $(".full-page-background");
+
+      $input = $(this);
+
+      if ($input.is(":checked")) {
+        if ($sidebar_img_container.length != 0) {
+          $sidebar_img_container.fadeIn("fast");
+          $sidebar.attr("data-image", "#");
+        }
+
+        if ($full_page_background.length != 0) {
+          $full_page_background.fadeIn("fast");
+          $full_page.attr("data-image", "#");
+        }
+
+        background_image = true;
+      } else {
+        if ($sidebar_img_container.length != 0) {
+          $sidebar.removeAttr("data-image");
+          $sidebar_img_container.fadeOut("fast");
+        }
+
+        if ($full_page_background.length != 0) {
+          $full_page.removeAttr("data-image", "#");
+          $full_page_background.fadeOut("fast");
+        }
+
+        background_image = false;
+      }
+    });
+
+    $(".switch-sidebar-mini input").change(function() {
+      $body = $("body");
+
+      $input = $(this);
+
+      if (md.misc.sidebar_mini_active == true) {
+        $("body").removeClass("sidebar-mini");
+        md.misc.sidebar_mini_active = false;
+
+        $(".sidebar .sidebar-wrapper, .main-panel").perfectScrollbar();
+      } else {
+        $(".sidebar .sidebar-wrapper, .main-panel").perfectScrollbar("destroy");
+
+        setTimeout(function() {
+          $("body").addClass("sidebar-mini");
+
+          md.misc.sidebar_mini_active = true;
+        }, 300);
+      }
+
+      // // we simulate the window Resize so the charts will get updated in realtime.
+      // var simulateWindowResize = setInterval(function() {
+      //   window.dispatchEvent(new Event('resize'));
+      // }, 180);
+
+      // // we stop the simulation of Window Resize after the animations are completed
+      // setTimeout(function() {
+      //   clearInterval(simulateWindowResize);
+      // }, 1000);
+    });
+  });
+});
 
 $(document).ready(function() {
   // Javascript method's body can be found in assets/js/demos.js
   md.initDashboardPageCharts();
 
-  if($('.inner.show').length) {
-    console.log('There is dropdown scrollbar');
+  if ($(".inner.show").length) {
+    console.log("There is dropdown scrollbar");
     // $('.inner.show').perfectScrollbar();
   }
 
-  if ($('.showIfErrors').length) {
-    console.log('Log text');
-    $('.showIfErrors').modal('show')
+  if ($(".showIfErrors").length) {
+    console.log("Log text");
+    $(".showIfErrors").modal("show");
   }
 
-  var clipboard = new ClipboardJS('.copyToClipBoardBtn');
+  var clipboard = new ClipboardJS(".copyToClipBoardBtn");
 
-  //Reference: 
-//https://www.onextrapixel.com/2012/12/10/how-to-create-a-custom-file-input-with-jquery-css3-and-php/
-;(function($) {
+  //Reference:
+  //https://www.onextrapixel.com/2012/12/10/how-to-create-a-custom-file-input-with-jquery-css3-and-php/
+  (function($) {
+    // Browser supports HTML5 multiple file?
+    var multipleSupport = typeof $("<input/>")[0].multiple !== "undefined",
+      isIE = /msie/i.test(navigator.userAgent);
 
-      // Browser supports HTML5 multiple file?
-      var multipleSupport = typeof $('<input/>')[0].multiple !== 'undefined',
-          isIE = /msie/i.test( navigator.userAgent );
+    $.fn.customFile = function() {
+      return this.each(function() {
+        var $file = $(this).addClass("custom-file-upload-hidden"), // the original file input
+          $wrap = $('<div class="file-upload-wrapper">'),
+          $input = $('<input type="text" class="file-upload-input" />'),
+          // Button that will be used in non-IE browsers
+          $button = $(
+            '<button type="button" class="file-upload-button">Выберите файл</button>'
+          ),
+          // Hack for IE
+          $label = $(
+            '<label class="file-upload-button" for="' +
+              $file[0].id +
+              '">Выберите файл</label>'
+          );
 
-      $.fn.customFile = function() {
+        // Hide by shifting to the left so we
+        // can still trigger events
+        $file.css({
+          position: "absolute",
+          left: "-9999px"
+        });
 
-        return this.each(function() {
+        $wrap.insertAfter($file).append($file, $input, isIE ? $label : $button);
 
-          var $file = $(this).addClass('custom-file-upload-hidden'), // the original file input
-              $wrap = $('<div class="file-upload-wrapper">'),
-              $input = $('<input type="text" class="file-upload-input" />'),
-              // Button that will be used in non-IE browsers
-              $button = $('<button type="button" class="file-upload-button">Выберите файл</button>'),
-              // Hack for IE
-              $label = $('<label class="file-upload-button" for="'+ $file[0].id +'">Выберите файл</label>');
+        // Prevent focus
+        $file.attr("tabIndex", -1);
+        $button.attr("tabIndex", -1);
 
-          // Hide by shifting to the left so we
-          // can still trigger events
-          $file.css({
-            position: 'absolute',
-            left: '-9999px'
-          });
+        $button.click(function() {
+          $file.focus().click(); // Open dialog
+        });
 
-          $wrap.insertAfter( $file )
-            .append( $file, $input, ( isIE ? $label : $button ) );
+        $file.change(function() {
+          var files = [],
+            fileArr,
+            filename;
 
-          // Prevent focus
-          $file.attr('tabIndex', -1);
-          $button.attr('tabIndex', -1);
-
-          $button.click(function () {
-            $file.focus().click(); // Open dialog
-          });
-
-          $file.change(function() {
-
-            var files = [], fileArr, filename;
-
-            // If multiple is supported then extract
-            // all filenames from the file array
-            if ( multipleSupport ) {
-              fileArr = $file[0].files;
-              for ( var i = 0, len = fileArr.length; i < len; i++ ) {
-                files.push( fileArr[i].name );
-              }
-              filename = files.join(', ');
+          // If multiple is supported then extract
+          // all filenames from the file array
+          if (multipleSupport) {
+            fileArr = $file[0].files;
+            for (var i = 0, len = fileArr.length; i < len; i++) {
+              files.push(fileArr[i].name);
+            }
+            filename = files.join(", ");
 
             // If not supported then just take the value
             // and remove the path to just show the filename
-            } else {
-              filename = $file.val().split('\\').pop();
-            }
+          } else {
+            filename = $file
+              .val()
+              .split("\\")
+              .pop();
+          }
 
-            $input.val( filename ) // Set the value
-              .attr('title', filename) // Show filename in title tootlip
-              .focus(); // Regain focus
-
-          });
-
-          $input.on({
-            blur: function() { $file.trigger('blur'); },
-            keydown: function( e ) {
-              if ( e.which === 13 ) { // Enter
-                if ( !isIE ) { $file.trigger('click'); }
-              } else if ( e.which === 8 || e.which === 46 ) { // Backspace & Del
-                // On some browsers the value is read-only
-                // with this trick we remove the old input and add
-                // a clean clone with all the original events attached
-                $file.replaceWith( $file = $file.clone( true ) );
-                $file.trigger('change');
-                $input.val('');
-              } else if ( e.which === 9 ){ // TAB
-                return;
-              } else { // All other keys
-                return false;
-              }
-            }
-          });
-
+          $input
+            .val(filename) // Set the value
+            .attr("title", filename) // Show filename in title tootlip
+            .focus(); // Regain focus
         });
 
-      };
-
-      // Old browser fallback
-      if ( !multipleSupport ) {
-        $( document ).on('change', 'input.customfile', function() {
-
-          var $this = $(this),
-              // Create a unique ID so we
-              // can attach the label to the input
-              uniqId = 'customfile_'+ (new Date()).getTime(),
-              $wrap = $this.parent(),
-
-              // Filter empty input
-              $inputs = $wrap.siblings().find('.file-upload-input')
-                .filter(function(){ return !this.value }),
-
-              $file = $('<input type="file" id="'+ uniqId +'" name="'+ $this.attr('name') +'"/>');
-
-          // 1ms timeout so it runs after all other events
-          // that modify the value have triggered
-          setTimeout(function() {
-            // Add a new input
-            if ( $this.val() ) {
-              // Check for empty fields to prevent
-              // creating new inputs when changing files
-              if ( !$inputs.length ) {
-                $wrap.after( $file );
-                $file.customFile();
+        $input.on({
+          blur: function() {
+            $file.trigger("blur");
+          },
+          keydown: function(e) {
+            if (e.which === 13) {
+              // Enter
+              if (!isIE) {
+                $file.trigger("click");
               }
+            } else if (e.which === 8 || e.which === 46) {
+              // Backspace & Del
+              // On some browsers the value is read-only
+              // with this trick we remove the old input and add
+              // a clean clone with all the original events attached
+              $file.replaceWith(($file = $file.clone(true)));
+              $file.trigger("change");
+              $input.val("");
+            } else if (e.which === 9) {
+              // TAB
+              return;
+            } else {
+              // All other keys
+              return false;
+            }
+          }
+        });
+      });
+    };
+
+    // Old browser fallback
+    if (!multipleSupport) {
+      $(document).on("change", "input.customfile", function() {
+        var $this = $(this),
+          // Create a unique ID so we
+          // can attach the label to the input
+          uniqId = "customfile_" + new Date().getTime(),
+          $wrap = $this.parent(),
+          // Filter empty input
+          $inputs = $wrap
+            .siblings()
+            .find(".file-upload-input")
+            .filter(function() {
+              return !this.value;
+            }),
+          $file = $(
+            '<input type="file" id="' +
+              uniqId +
+              '" name="' +
+              $this.attr("name") +
+              '"/>'
+          );
+
+        // 1ms timeout so it runs after all other events
+        // that modify the value have triggered
+        setTimeout(function() {
+          // Add a new input
+          if ($this.val()) {
+            // Check for empty fields to prevent
+            // creating new inputs when changing files
+            if (!$inputs.length) {
+              $wrap.after($file);
+              $file.customFile();
+            }
             // Remove and reorganize inputs
-            } else {
-              $inputs.parent().remove();
-              // Move the input so it's always last on the list
-              $wrap.appendTo( $wrap.parent() );
-              $wrap.find('input').focus();
-            }
-          }, 1);
+          } else {
+            $inputs.parent().remove();
+            // Move the input so it's always last on the list
+            $wrap.appendTo($wrap.parent());
+            $wrap.find("input").focus();
+          }
+        }, 1);
+      });
+    }
+  })(jQuery);
 
-        });
-      }
-
-}(jQuery));
-
-$('input[type=file]').customFile();
-
+  $("input[type=file]").customFile();
 });
-

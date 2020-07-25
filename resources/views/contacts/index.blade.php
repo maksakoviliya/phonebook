@@ -15,6 +15,10 @@
               <p class="card-category"><a href="{{ route('phonebooks.edit', $phonebook->id) }}">{{ $phonebook->title }}</a></p>
           </div>
           <search-contacts phonebook-id="{{$phonebook->id}}" base-url="{{ config('app.url') }}"></search-contacts>
+          <a href="{{ route('contacts.create', $phonebook->id) }}" class="btn btn-success">
+            <i class="material-icons">add</i>
+            Добавить
+          </a>
         </div>
         <div class="card-body">
           <div class="table-responsive">

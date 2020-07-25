@@ -7,7 +7,8 @@
   <link rel="icon" type="image/png" href="{{ asset('img/favicon.png') }}">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>{{ env('APP_TITLE') }}</title>
-  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
+    name='viewport' />
   <!--     Fonts and icons     -->
   {{-- <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" /> --}}
   <link href="{{ mix('css/app.css') }}" rel="stylesheet" />
@@ -17,21 +18,23 @@
   <div class="wrapper">
 
 
-    <div class="sidebar" data-color="purple" data-background-color="black" data-image="{{ asset('img/sidebar-2.jpg') }}">
+    <div class="sidebar" data-color="purple" data-background-color="black"
+      data-image="{{ asset('img/sidebar-2.jpg') }}">
       <!--
         Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
         Tip 2: you can also add an image using data-image tag
       -->
-      <div class="logo"><a href="http://www.creative-tim.com" class="simple-text logo-normal">{{ config('app.name') }}</a></div>
+      <div class="logo"><a href="http://www.creative-tim.com"
+          class="simple-text logo-normal">{{ config('app.name') }}</a></div>
 
       <div class="sidebar-wrapper">
         <ul class="nav">
           {{-- <li class="nav-item {{ Request::is('dashboard') ? 'active' :  '' }}">
-            <a class="nav-link" href="{{ route('dashboard') }}">
-              <i class="material-icons">dashboard</i>
-              <p>Панель управления</p>
-            </a>
+          <a class="nav-link" href="{{ route('dashboard') }}">
+            <i class="material-icons">dashboard</i>
+            <p>Панель управления</p>
+          </a>
           </li> --}}
           <li class="nav-item {{ Request::is('phonebooks'.'*') ? 'active' :  '' }}">
             <a class="nav-link" href="{{ route('phonebooks.index') }}">
@@ -80,21 +83,22 @@
     </div>
 
 
-        <div class="main-panel">
-          <!-- Navbar -->
-          <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " id="navigation-example">
-            <div class="container-fluid">
-              <div class="navbar-wrapper">
-                <a class="navbar-brand" href="{{ route('dashboard') }}">Dashboard</a>
-              </div>
-              <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation" data-target="#navigation-example">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="navbar-toggler-icon icon-bar"></span>
-                <span class="navbar-toggler-icon icon-bar"></span>
-                <span class="navbar-toggler-icon icon-bar"></span>
-              </button>
-              <div class="collapse navbar-collapse justify-content-end">
-                {{-- <form class="navbar-form">
+    <div class="main-panel">
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " id="navigation-example">
+        <div class="container-fluid">
+          <div class="navbar-wrapper">
+            <a class="navbar-brand" href="{{ route('dashboard') }}">Dashboard</a>
+          </div>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
+            aria-expanded="false" aria-label="Toggle navigation" data-target="#navigation-example">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-end">
+            {{-- <form class="navbar-form">
                   <div class="input-group no-border">
                     <input type="text" value="" class="form-control" placeholder="Search...">
                     <button type="submit" class="btn btn-default btn-round btn-just-icon">
@@ -103,8 +107,8 @@
                     </button>
                   </div>
                 </form> --}}
-                <ul class="navbar-nav">
-                  {{-- <li class="nav-item">
+            <ul class="navbar-nav">
+              {{-- <li class="nav-item">
                     <a class="nav-link" href="javascript:void(0)">
                       <i class="material-icons">dashboard</i>
                       <p class="d-lg-none d-md-block">
@@ -130,34 +134,33 @@
                   </li> --}}
 
 
-                  <li class="nav-item">
-                    <a class="nav-link" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
+              <li class="nav-item">
+                <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                      <span>{{Auth::user()->name}} </span>
-                      <i class="material-icons">logout</i>
-                      <p class="d-lg-none d-md-block">Logout</p>
-                    </a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </nav>
-          <!-- End Navbar -->
-          <div class="content">
-            
-            <div id="app">
-              @yield('content')
-            </div>
-            
-            <footer class="footer">
-              <div class="container-fluid">
-                <nav class="float-left">
-                  <ul>
-                    {{-- <li>
+                  <span>{{Auth::user()->name}} </span>
+                  <i class="material-icons">logout</i>
+                  <p class="d-lg-none d-md-block">Logout</p>
+                </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                  @csrf
+                </form>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <!-- End Navbar -->
+      <div class="content">
+
+        <div id="app">
+          @yield('content')
+        </div>
+
+        <footer class="footer">
+          <div class="container-fluid">
+            <nav class="float-left">
+              <ul>
+                {{-- <li>
                       <a href="https://www.creative-tim.com">
                         Creative Tim
                       </a>
@@ -177,22 +180,22 @@
                         Licenses
                       </a>
                     </li> --}}
-                  </ul>
-                </nav>
-                <div class="copyright float-right" id="date">
-                  2020, made with <i class="material-icons">favorite</i> by
-                  <a href="https://github.com/maksakoviliya/phonebook.git" target="_blank">Maksak_il</a>
-                </div>
-              </div>
-            </footer>
+              </ul>
+            </nav>
+            <div class="copyright float-right" id="date">
+              2020, made with <i class="material-icons">favorite</i> by
+              <a href="https://github.com/maksakoviliya/phonebook.git" target="_blank">@maksak_il</a>
+            </div>
           </div>
-        </div>
-        <!--   Core JS Files   -->
-        <script src="{{ mix('/js/scripts.js') }}"></script>
-        <script src="{{ mix('/js/app.js') }}"></script>
-        @yield('scripts')
-        {{-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script> --}}
+        </footer>
+      </div>
+    </div>
+    <!--   Core JS Files   -->
+    <script src="{{ mix('/js/scripts.js') }}"></script>
+    <script src="{{ mix('/js/app.js') }}"></script>
+    @yield('scripts')
+    {{-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script> --}}
 
-      </body>
+</body>
 
-      </html>
+</html>
