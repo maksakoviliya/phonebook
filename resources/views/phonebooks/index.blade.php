@@ -26,18 +26,19 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        {{$phonebook}}
+                        {{$phonebooks}}
                         <table class="table table-hover">
                             <thead class=" text-primary">
                                 <th>#</th>
                                 <th>Название</th>
                                 <th>Вложенных организаций</th>
                                 <th>Контактов</th>
-                                <th></th>
+                                <thead></th>
                             </thead>
                             <tbody>
                                 @foreach ($phonebooks as $phonebook)
                                 <tr>
+                                    <td>{{$phonebook}}</td>
                                     <td>{{ $phonebook->id }}</td>
                                     @if ($phonebook->phonebooks->count())
                                     <td>
