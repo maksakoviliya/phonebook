@@ -28,45 +28,45 @@ class ActivationController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create(Request $request)
-    {   
-            if(! $user = User::find(Auth()->user()->id)) {
-                return response()->json(['error'=>'Пользователь не найден']);
-            }
-            if(! $code = Code::where('code', $request->code)->first()){
-                return response()->json(['error'=>'Лицензия не найдена']);
-            }
-            
-            if (in_array($code->id, $user->activations->pluck('code_id')->toArray())) {
-                return response()->json(['error'=>'У пользователя уже есть доступ к этому справочнику']);
+    {
+        if (!$user = User::find(Auth()->user()->id)) {
+            return response()->json(['error' => 'Пользователь не найден']);
+        }
+        if (!$code = Code::where('code', $request->code)->first()) {
+            return response()->json(['error' => 'Лицензия не найдена']);
+        }
+
+        if (in_array($code->id, $user->activations->pluck('code_id')->toArray())) {
+            return response()->json(['error' => 'У пользователя уже есть доступ к этому справочнику']);
+        }
+
+        if ($code->users_count < $code->users_total) {
+            try {
+                Activation::create([
+                    'user_id' => $user->id,
+                    'code_id' => $code->id,
+                ]);
+            } catch (Exception $e) {
+                return response()->json(['error' => $e->getMessage()]);
             }
 
-            if ($code->users_count < $code->users_total) {
-                try {
-                    Activation::create([
-                        'user_id' => $user->id,
-                        'code_id' => $code->id,
-                    ]);
-                } catch (Exception $e) {
-                    return response()->json(['error'=>$e->getMessage()]);
-                }
-
-                try {
-                    $code->update([
-                        'users_count' => $code->users_count+1
-                    ]);
-                } catch (Exception $e) {
-                    return response()->json(['error'=>$e->getMessage()]);
-                }
-            } else {
-                return response()->json(['error'=>'Превышено число лицензионных ключей']);
+            try {
+                $code->update([
+                    'users_count' => $code->users_count + 1
+                ]);
+            } catch (Exception $e) {
+                return response()->json(['error' => $e->getMessage()]);
             }
-            
-            if (! $phoneBook = PhoneBook::find($code->phonebook_id)) {
-                return response()->json(['error'=>'Ошибка - нет такого справочника']);
-            }
+        } else {
+            return response()->json(['error' => 'Превышено число лицензионных ключей']);
+        }
 
-            $contacts = $phoneBook->contacts;
-            
+        if (!$phoneBook = PhoneBook::find($code->phonebook_id)) {
+            return response()->json(['error' => 'Ошибка - нет такого справочника']);
+        }
+
+        $contacts = $phoneBook->contacts;
+
 
         return new PhonebooksResource($phoneBook);
     }
@@ -89,19 +89,19 @@ class ActivationController extends Controller
      */
     public function show(Request $request)
     {
-        if(! $user = User::find(Auth()->user()->id)) {
-            return response()->json(['error'=>'Пользователь не найден']);
+        if (!$user = User::find(Auth()->user()->id)) {
+            return response()->json(['error' => 'Пользователь не найден']);
         }
-        if(! $code = Code::where('code', $request->code)->first()){
-            return response()->json(['error'=>'Лицензия не найдена']);
-        }
-
-        if (! in_array($code->id, $user->activations->pluck('code_id')->toArray())) {
-            return response()->json(['error'=>'У пользователя нет доступа к этому справочнику']);
+        if (!$code = Code::where('code', $request->code)->first()) {
+            return response()->json(['error' => 'Лицензия не найдена']);
         }
 
-        if (! $phoneBook = PhoneBook::find($code->phonebook_id)) {
-            return response()->json(['error'=>'Ошибка - нет такого справочника']);
+        if (!in_array($code->id, $user->activations->pluck('code_id')->toArray())) {
+            return response()->json(['error' => 'У пользователя нет доступа к этому справочнику']);
+        }
+
+        if (!$phoneBook = PhoneBook::find($code->phonebook_id)) {
+            return response()->json(['error' => 'Ошибка - нет такого справочника']);
         }
 
         return new PhonebooksResource($phoneBook);
@@ -147,13 +147,13 @@ class ActivationController extends Controller
 
     public function codes()
     {
-        $codes = array_map(function($activation) {
+        $codes = array_map(function ($activation) {
             return $activation['code']['code'];
         }, Activation::where('user_id', Auth()->user()->id)->with('code')->get()->toArray());
 
         if (count($codes)) {
             return response()->json(compact('codes'));
         }
-        return response()->json(['error'=>'Кодов не найдено']);
+        return response()->json(['error' => 'Кодов не найдено']);
     }
 }

@@ -54,6 +54,7 @@
                                     @endif
                                     <td>{{ $phonebook->phonebooks->count() }}</td>
                                     <td>
+                                        {{$phonebook->contacts}}
                                         <a class="btn btn-sm btn-info"
                                             href="{{ route('phonebooks.contacts', $phonebook->id) }}">{{ $phonebook->contacts ? $phonebook->contacts->count() : 0 }}</a>
                                     </td>
