@@ -37,7 +37,7 @@
                             <tbody>
                                 @foreach ($phonebooks as $phonebook)
                                 <tr>
-                                    <td>{{count($phonebook->contacts)}}</td>
+                                    <td>{{count($phonebook)}}</td>
                                     <td>{{ $phonebook->id }}</td>
                                     @if ($phonebook->phonebooks->count())
                                     <td>
