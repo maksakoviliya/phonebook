@@ -18,9 +18,8 @@ class PhoneBookController extends Controller
      */
     public function index()
     {
-        $phonebooks = PhoneBook::where('parent_id', 0)->paginate(10);
-        // $allPhonebooks = PhoneBook::all();
-
+        $phonebooks = PhoneBook::where('parent_id', 0)->with(['phonebooks', 'contacts'])->paginate(10);
+        
         return view('phonebooks.index', compact('phonebooks'));
     }
 
