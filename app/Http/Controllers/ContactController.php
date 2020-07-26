@@ -177,7 +177,8 @@ class ContactController extends Controller
                 mkdir($directory);
             }
             $path = storage_path('app/public/contacts/' . $name);
-            $imagePath = '/storage/contacts/' . $name;
+            $imagePath = public_path('storage/contacts/' . $name);
+            Log::info($imagePath);
             $image->save($path);
             $contact->photo = $imagePath;
         }
