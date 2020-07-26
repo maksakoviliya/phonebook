@@ -70,9 +70,9 @@
                         </table>
                     </div>
                 </div>
-                <div class="card-footer">
+                {{--  <div class="card-footer">
                     {{$phonebooks->links()}}
-                </div>
+                </div>  --}}
             </div>
         </div>
 
