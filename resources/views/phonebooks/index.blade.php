@@ -31,7 +31,7 @@
                                 <th>#</th>
                                 <th>Название</th>
                                 <th>Вложенных организаций</th>
-                                <th>Контактов</th>
+                                {{--  <th>Контактов</th>  --}}
                                 <th></th>
                             </thead>
                             <tbody>
@@ -53,11 +53,11 @@
                                     </td>
                                     @endif
                                     <td>{{ $phonebook->phonebooks->count() }}</td>
-                                    <td>
+                                    {{--  <td>
                                         {{$phonebook->contacts}}
                                         <a class="btn btn-sm btn-info"
                                             href="{{ route('phonebooks.contacts', $phonebook->id) }}">{{ $phonebook->contacts ? $phonebook->contacts->count() : 0 }}</a>
-                                    </td>
+                                    </td>  --}}
                                     <td class="td-actions text-right">
                                         <a href="{{ route('phonebooks.edit', $phonebook->id) }}" rel="tooltip"
                                             title="Открыть для редактирования" class="btn btn-white btn-link btn-sm">
@@ -70,9 +70,9 @@
                         </table>
                     </div>
                 </div>
-                {{--  <div class="card-footer">
+                <div class="card-footer">
                     {{$phonebooks->links()}}
-                </div>  --}}
+                </div>
             </div>
         </div>
 
