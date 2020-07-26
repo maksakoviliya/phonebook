@@ -55,7 +55,7 @@
                                     <td>{{ $phonebook->phonebooks->count() }}</td>
                                     <td>
                                         <a class="btn btn-sm btn-info"
-                                            href="{{ route('phonebooks.contacts', $phonebook->id) }}">{{ $phonebook->contacts ?? $phonebook->contacts->count() }}</a>
+                                            href="{{ route('phonebooks.contacts', $phonebook->id) }}">{{ $phonebook->contacts }}</a>
                                     </td>
                                     <td class="td-actions text-right">
                                         <a href="{{ route('phonebooks.edit', $phonebook->id) }}" rel="tooltip"
