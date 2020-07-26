@@ -26,7 +26,6 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        {{$phonebooks}}
                         <table class="table table-hover">
                             <thead class=" text-primary">
                                 <th>#</th>
@@ -56,7 +55,7 @@
                                     <td>{{ $phonebook->phonebooks->count() }}</td>
                                     <td>
                                         <a class="btn btn-sm btn-info"
-                                            href="{{ route('phonebooks.contacts', $phonebook->id) }}">{{ $phonebook->contacts }}</a>
+                                            href="{{ route('phonebooks.contacts', $phonebook->id) }}">{{ $phonebook->contacts->count() }}</a>
                                     </td>
                                     <td class="td-actions text-right">
                                         <a href="{{ route('phonebooks.edit', $phonebook->id) }}" rel="tooltip"
